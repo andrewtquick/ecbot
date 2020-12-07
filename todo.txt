@@ -1,0 +1,18 @@
+Features
+
+Admin:
+kick
+ban
+mute
+deafen
+invite link
+Announcements
+Exit Monitoring
+Word Monitoring
+
+Wow:
+Price checker
+Raid Guide
+Dungeon Guide
+Class Guide
+Profession Guide
