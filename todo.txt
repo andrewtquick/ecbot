@@ -1,8 +1,6 @@
 Features
 
 Admin:
-kick
-ban
 mute
 deafen
 invite link

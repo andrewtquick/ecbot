@@ -14,7 +14,9 @@ class ErrorHandler(commands.Cog):
         if isinstance(err, MissingRole):
             await ctx.send(f'Sorry {ctx.author.mention}, you do not have the permission to perform this command.')
 
-        print(type(err))
+        if isinstance(err, BadArgument):
+            await ctx.send(f'{ctx.author.mention} -> Sorry, not sure who that is. Please ensure you @ the user.')
+
     
 def setup(bot):
     bot.add_cog(ErrorHandler(bot))
