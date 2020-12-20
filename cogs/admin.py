@@ -18,7 +18,7 @@ class AdminControl(commands.Cog):
     @Command(
         name='kick',
         aliases=['k'],
-        help='Kick a user from the server. Must be Admin.',
+        help='*Requires Admin* Kick a user from the server.',
         usage='@user <reason>')
     @commands.has_role('Admin')
     async def kick(self, ctx: Context, member: Member, *, reason='No reason given.'):
@@ -33,7 +33,7 @@ class AdminControl(commands.Cog):
     @Command(
         name='ban',
         aliases=['b'],
-        help='Ban a user from the server. Must be Admin.',
+        help='*Requires Admin* Ban a user from the server.',
         usage='@user <reason>')
     @commands.has_role('Admin')
     async def ban(self, ctx: Context, member: Member, *, reason='No reason given.'):
@@ -48,7 +48,7 @@ class AdminControl(commands.Cog):
     @Command(
         name='mute',
         aliases=['m'],
-        help='Mute a user in the voice channel.',
+        help='*Requires Admin* Mute a user in the voice channel.',
         usage='@user')
     @commands.has_role('Admin')
     async def mute(self, ctx: Context, member: Member, *, reason='No reason given.'):
@@ -63,7 +63,7 @@ class AdminControl(commands.Cog):
     @Command(
         name='deafen',
         aliases=['d'],
-        help='Deafen a user in the voice channel.',
+        help='*Requires Admin* Deafen a user in the voice channel.',
         usage='@user')
     @commands.has_role('Admin')
     async def deafen(self, ctx: Context, member: Member, *, reason='No reason given.'):
@@ -73,53 +73,17 @@ class AdminControl(commands.Cog):
         await ctx.send(f'**{member.name}** has been deafened.')
         await officer_channel.send(embed=embed)
 
-    # Invite Command
-
-    @Command(
-        name='invite',
-        aliases=['i'],
-        help='Generate an invite link to the text channel.',
-        usage='<time limit in seconds> <max uses>')
-    async def link(self, ctx: Context, limit=600, uses=0):
-        inv_link = await ctx.channel.create_invite(max_age=limit, max_uses=uses, unique=True)
-        if limit == 0 and uses == 0:
-            await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\n{inv_link}')
-        else:
-            m, s = divmod(float(limit), 60)
-            if uses == 0:
-                await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\nRemember, the link is active for `{int(m)}m {int(s)}s`.\n\n{inv_link}')
-            else:
-                await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\nRemember, the link is active for `{int(m)}m {int(s)}s` and can be used `{uses}` times.\n\n{inv_link}')
-
     # Announcement Command
 
     @Command(
         name='announce',
         aliases=['a'],
-        help='Send an announcement to the announcement channel.',
+        help='*Requires Admin* Send an announcement to the announcement channel.',
         usage='message')
     @commands.has_role('Admin')
     async def announce(self, ctx: Context, *, msg: str):
         announce_chan = self.bot.get_channel(self.ANNOUNCE_CHAN)
         await announce_chan.send(msg)
-
-    # Feature Command
-
-    @Command(
-        name='features',
-        aliases=['f'],
-        help='List of upcoming features for EC Bot')
-    async def features(self, ctx: Context):
-        await ctx.send(
-            f'''{ctx.author.mention} -> Here are some features Xylr is currently working on:\n
-            1. Item Price Lookup
-            2. Item Lookup
-            3. Raid Guide Links
-            4. Mythic+ Guide Links
-            5. Class Guide Links
-            6. Profession Guide Links
-            7. WoW Token Price\n
-            If you think there is something that would be worth adding, please let Xylr know.''')
 
     # Embed Creator for Admin Commands
 
