@@ -1,11 +1,6 @@
 Features
 
 Admin:
-mute
-deafen
-invite link
-Announcements
-Exit Monitoring
 Word Monitoring
 
 Wow:

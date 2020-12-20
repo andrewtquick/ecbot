@@ -2,9 +2,10 @@ import discord
 import os
 from discord.ext import commands
 
-# https://discord.com/api/oauth2/authorize?client_id=782672278365667329&scope=bot&permissions=8
+intents = discord.Intents.default()
+intents.members = True
 
-bot = commands.Bot(command_prefix='.', description='Here is a list of available commands.\n To use the command, prefix the command with ".".')
+bot = commands.Bot(command_prefix='.', description='Here is a list of available commands.\n To use the command, prefix the command with ".".', intents=intents)
 
 exts = [
     'cogs.loadcog',
@@ -12,19 +13,33 @@ exts = [
     'cogs.admin'
 ]
 
+OFFICER_CHANNEL = int(os.getenv('OFFICER_CHANNEL'))
+
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} online.')
 
 @bot.event
-async def on_member_leave(member: discord.Member):
-    officer_channel = bot.get_channel(785518643312066570)
-    await officer_channel.send(f'**{member}** has left the server.')
+async def on_member_remove(member: discord.Member):
+    ochannel = bot.get_channel(OFFICER_CHANNEL)
+    await ochannel.send(f'**{member}** has left the server.')
 
 @bot.event
 async def on_member_join(member: discord.Member):
-    officer_channel = bot.get_channel(785518643312066570)
-    await officer_channel.send(f'**{member}** has joined the server. They can only see the `#general` channel until you assign them a role.')
+    ochannel = bot.get_channel(OFFICER_CHANNEL)
+
+    await ochannel.send(f'**{member}** has joined the server. They can only see the `#purgatory` channel and `lobby` voice channel until you assign them a role.')
+
+    embed = discord.Embed(
+        title="Welcome to Elite Casual's Discord Server",
+        description='We are an AOTC focused raiding guild on Stormrage-US\n\u200b',
+        colour=discord.Colour.blue())
+    embed.set_thumbnail(url='https://i.imgur.com/eWMZmVV.png')
+    embed.add_field(name='📄 Server Rules', value='❌ No Racism\n❌ No Politics Discussion\n❌ No Toxicity\n❌ No NSFW Content\n✅ Have fun!\n\n**These rules are zero tolerance.**\n\u200b', inline=False)
+    embed.add_field(name='👑 Guild Leadership', value='Xylr\nDiamondclaw\nZellah\n\u200b', inline=False)
+    embed.add_field(name='❔ Looking to raid or just hang out?', value='Please be sure to reach out to the guild leadership with your intention.', inline=False)
+    await member.send('https://i.imgur.com/gYeYMCM.png')
+    await member.send(embed=embed)
 
 if __name__ == '__main__':
 
