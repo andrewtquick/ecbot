@@ -10,7 +10,8 @@ bot = commands.Bot(command_prefix='.', description='Here is a list of available 
 exts = [
     'cogs.loadcog',
     'cogs.error_handler',
-    'cogs.admin'
+    'cogs.admin',
+    'cogs.misc'
 ]
 
 OFFICER_CHANNEL = int(os.getenv('OFFICER_CHANNEL'))
