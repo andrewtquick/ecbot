@@ -10,8 +10,8 @@ class AdminControl(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.OFFICER_CHANNEL = int(os.getenv('OFFICER_CHANNEL'))
-        self.ANNOUNCE_CHAN = int(os.getenv('ANNOUNCE_CHAN'))
+        self.OFFICER_CHANNEL = os.getenv('OFFICER_CHANNEL')
+        self.ANNOUNCE_CHAN = os.getenv('ANNOUNCE_CHAN')
 
     # Kick Command
 
@@ -22,7 +22,7 @@ class AdminControl(commands.Cog):
         usage='@user <reason>')
     @commands.has_any_role('Admin', 'Guild Master')
     async def kick(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(self.OFFICER_CHANNEL)
+        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('kick', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
         await member.kick(reason=reason)
         await ctx.send(f'**{member.name}** has been kicked.')
@@ -37,7 +37,7 @@ class AdminControl(commands.Cog):
         usage='@user <reason>')
     @commands.has_any_role('Admin', 'Guild Master')
     async def ban(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(self.OFFICER_CHANNEL)
+        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('ban', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
         await member.ban(reason=reason)
         await ctx.send(f'**{member.name}** has been banned.')
@@ -52,7 +52,7 @@ class AdminControl(commands.Cog):
         usage='@user')
     @commands.has_any_role('Admin', 'Guild Master')
     async def mute(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(self.OFFICER_CHANNEL)
+        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('mute', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
         await member.edit(mute=True)
         await ctx.send(f'**{member.name}** has been muted.')
@@ -67,7 +67,7 @@ class AdminControl(commands.Cog):
         usage='@user')
     @commands.has_any_role('Admin', 'Guild Master')
     async def deafen(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(self.OFFICER_CHANNEL)
+        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('deafen', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
         await member.edit(deafen=True)
         await ctx.send(f'**{member.name}** has been deafened.')
@@ -82,7 +82,7 @@ class AdminControl(commands.Cog):
         usage='message')
     @commands.has_any_role('Admin', 'Guild Master')
     async def announce(self, ctx: Context, *, msg: str):
-        announce_chan = self.bot.get_channel(self.ANNOUNCE_CHAN)
+        announce_chan = self.bot.get_channel(int(self.ANNOUNCE_CHAN))
         await announce_chan.send(msg)
 
     # Friends and Family Command
@@ -95,7 +95,7 @@ class AdminControl(commands.Cog):
     @commands.has_any_role('Admin', 'Guild Master', 'Elite', 'Mythic+')
     async def friends_family(self, ctx: Context, member: Member):
         role = discord.utils.get(ctx.guild.roles, name='Friends and Family')
-        ochannel = self.bot.get_channel(self.OFFICER_CHANNEL)
+        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
              
         if role in member.roles:
             await ctx.send(f'{ctx.author.mention} -> **{member.name}** already has that role.')
