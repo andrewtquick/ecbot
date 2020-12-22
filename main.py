@@ -15,6 +15,7 @@ exts = [
 ]
 
 OFFICER_CHANNEL = int(os.getenv('OFFICER_CHANNEL'))
+PURGATORY_CHAN = int(os.getenv('PURGATORY_CHAN'))
 
 @bot.event
 async def on_ready():
@@ -27,9 +28,9 @@ async def on_member_remove(member: discord.Member):
 
 @bot.event
 async def on_member_join(member: discord.Member):
-    ochannel = bot.get_channel(OFFICER_CHANNEL)
+    ochannel = bot.get_channel(PURGATORY_CHAN)
 
-    await ochannel.send(f'**{member}** has joined the server. They can only see the `#purgatory` channel and `lobby` voice channel until you assign them a role.')
+    await ochannel.send(f'@Guild Master **{member.name}** has joined the server.')
 
     embed = discord.Embed(
         title="Welcome to Elite Casual's Discord Server",
