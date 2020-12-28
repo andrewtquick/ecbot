@@ -20,6 +20,7 @@ PURGATORY_CHAN = int(os.getenv('PURGATORY_CHAN'))
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} online.')
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='.help command'))
 
 @bot.event
 async def on_member_remove(member: discord.Member):
