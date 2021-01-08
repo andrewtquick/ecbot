@@ -20,7 +20,7 @@ class Miscellaneous(commands.Cog):
     @Command(
         name='invite',
         aliases=['i'],
-        help='Generate an invite link to the text channel.',
+        help='Generate an invite link to the server.',
         usage='<time limit in seconds> <max uses>')
     async def link(self, ctx: Context, limit=600, uses=0):
         inv_link = await ctx.channel.create_invite(max_age=limit, max_uses=uses, unique=True)

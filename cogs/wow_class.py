@@ -12,7 +12,7 @@ class WowClass(commands.Cog):
 
     @Command(
         name='dk',
-        help='Displays class information for Death Knight. Spec Options: Frost, Blood, Unholy',
+        help='Displays class information for Death Knight.',
         usage='frost\n.dk blood\n.dk unholy')
     async def death_knight(self, ctx: Context, *, spec=None):
         
@@ -170,7 +170,7 @@ class WowClass(commands.Cog):
     # Paladin Command
 
     @Command(
-        name='palain',
+        name='paladin',
         aliases=['paly'],
         help='Displays class information for Paladin',
         usage='prot\n.paly retribution\n.paly holy')
