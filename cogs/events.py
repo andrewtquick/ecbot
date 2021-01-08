@@ -22,7 +22,7 @@ class Events(commands.Cog):
         print(f"Current Time: {datetime.today().strftime('%x %X')}")
         await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='.help command'))
 
-    # On Member Leave, Kick, Ban, and Unban
+    # On Member Leave, Kick, and Ban
 
     @commands.Cog.listener()
     async def on_member_remove(self, member: Member):
@@ -33,20 +33,32 @@ class Events(commands.Cog):
         curr_time = curr_time_add_hrs.strftime('%x %X')
 
 
-        async for entry in self.EC_GUILD.audit_logs(limit=1):
+        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.kick):
             entry_time = entry.created_at.strftime('%x %X')
 
-            if isinstance(entry.action, type(discord.AuditLogAction.kick)) and entry_time == curr_time:
+            if entry_time == curr_time:
                 await self.O_CHANNEL.send(f"**{entry.user.name}** kicked **{entry.target.name}** from the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
                 return
-            elif isinstance(entry.action, type(discord.AuditLogAction.ban)) and entry_time == curr_time:
+
+        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.ban):
+            entry_time = entry.created_at.strftime('%x %X')
+
+            if entry_time == curr_time:
                 await self.O_CHANNEL.send(f"**{entry.user.name}** banned **{entry.target.name}** from the server\nReason: **`{entry.reason}`**\n`Timestamp: {datetime.today().strftime('%x %X')}`")
                 return
-            elif isinstance(entry.action, type(discord.AuditLogAction.unban)) and entry_time == curr_time:
-                await self.O_CHANNEL.send(f"**{entry.user.name}** unbanned **{entry.target}** from the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
-                return
 
-        await self.O_CHANNEL.send(f'**{member}** has left the server.')
+        await self.O_CHANNEL.send(f"**{member}** has left the server.`Timestamp: {datetime.today().strftime('%x %X')}`")
+
+
+     # On Member Unban
+
+    @commands.Cog.listener()
+    async def on_member_unban(self, _, member: Member):
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
+        self.EC_GUILD = self.bot.get_guild(int(self.EC_GUILD_GET))
+
+        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.unban):
+            await self.O_CHANNEL.send(f"**{entry.user.name}** unbanned **{entry.target}** from the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
 
     # On Member Join Message
 
@@ -54,7 +66,7 @@ class Events(commands.Cog):
     async def on_member_join(self, member: Member):
         self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
 
-        await self.O_CHANNEL.send(f'**{member.name}** has joined the server.')
+        await self.O_CHANNEL.send(f"**{member.name}** has joined the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
 
         embed = discord.Embed(
             title="Welcome to Elite Casual's Discord Server",
@@ -82,14 +94,14 @@ class Events(commands.Cog):
                 if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
                     pass
                 else:
-                    await self.O_CHANNEL.send(f"**{entry.user.name}** removed the `{old_role[0].name}` role from **{entry.target.name}**.")
+                    await self.O_CHANNEL.send(f"**{entry.user.name}** removed the `{old_role[0].name}` role from **{entry.target.name}**. `Timestamp: {datetime.today().strftime('%x %X')}`")
         
         if new_role:
             async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
                 if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
                     pass
                 else:
-                    await self.O_CHANNEL.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.name}**.")
+                    await self.O_CHANNEL.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.name}**. `Timestamp: {datetime.today().strftime('%x %X')}`")
 
 
 def setup(bot):

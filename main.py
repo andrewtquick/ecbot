@@ -12,7 +12,8 @@ exts = [
     'cogs.error_handler',
     'cogs.admin',
     'cogs.misc',
-    'cogs.events'
+    'cogs.events',
+    'cogs.wow_class'
 ]
 
 if __name__ == '__main__':

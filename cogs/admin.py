@@ -102,7 +102,25 @@ class AdminControl(commands.Cog):
         else:
             await member.add_roles(role, atomic=True)
             await ctx.send(f'{ctx.author.mention} -> Added `Friends and Family` rank to **{member.name}**')
-            await ochannel.send(f'**{ctx.author.name}** added the `Friends and Family` rank to **{member.name}**.')
+            await ochannel.send(f"**{ctx.author.name}** added the `Friends and Family` rank to **{member.name}**. `Timestamp: {dt.today().strftime('%x %X')}`")
+
+    # Rules Command
+
+    @Command(
+        name='rules',
+        aliases=['gr'],
+        help='Displays the Guild and Discord Rules.')
+    async def guild_rules(self, ctx: Context):
+        await ctx.send(f'{ctx.author.mention}\n```📄 Server Rules 📄\n\n❌ No Racism\n❌ No Politics Discussion\n❌ No Toxicity\n❌ No NSFW Content\n✅ Have fun!```\n**These rules are zero tolerance.**')
+
+    # Leadership Command
+
+    @Command(
+        name='leadership',
+        aliases=['gl'],
+        help='Displays the Guild and Discord Leadership')
+    async def leadership(self, ctx: Context):
+        await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr (Reidx)\nDiamondclaw\nZellah\n\nRaid Lead:\nNock the Block```')
 
     # Embed Creator for Admin Commands
 
