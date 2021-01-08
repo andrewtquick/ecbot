@@ -1,5 +1,7 @@
 import discord
 import os
+from datetime import datetime, timedelta
+from discord import Member as Member
 from discord.ext import commands
 from discord.ext.commands import command as Command
 from discord.ext.commands import Context
@@ -8,44 +10,63 @@ class Events(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.OFFICER_CHANNEL = os.getenv('OFFICER_CHANNEL')
-        self.PURGATORY_CHAN = os.getenv('PURGATORY_CHAN')
-        self.EC_GUILD = os.getenv('GUILD')
+        self.O_CHAN_GET = os.getenv('OFFICER_CHANNEL')
+        self.PURG_CHAN_GET = os.getenv('PURGATORY_CHAN')
+        self.EC_GUILD_GET = os.getenv('GUILD')
 
     # On Ready
 
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'{self.bot.user.name} online.')
+        print(f"Current Time: {datetime.today().strftime('%x %X')}")
         await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='.help command'))
 
-    # On Member Remove or Leave
+    # On Member Leave, Kick, and Ban
 
     @commands.Cog.listener()
-    async def on_member_remove(self, member: discord.Member):
-        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
-        ec_guild = self.bot.get_guild(int(self.EC_GUILD))
+    async def on_member_remove(self, member: Member):
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
+        self.EC_GUILD = self.bot.get_guild(int(self.EC_GUILD_GET))
 
-        async for entry in ec_guild.audit_logs(limit=1, action=discord.AuditLogAction.kick):
-            if isinstance(entry.action, type(discord.AuditLogAction.kick)):
-                print(discord.AuditLogEntry.created_at)
-        #         await ochannel.send(f"**{entry.user.name}** kicked **{entry.target.name}** from the server.")
-        #         return
+        curr_time_add_hrs = datetime.today() + timedelta(hours=5)
+        curr_time = curr_time_add_hrs.strftime('%x %X')
 
-        # async for entry in ec_guild.audit_logs(limit=1, action=discord.AuditLogAction.ban):
-        #     if isinstance(entry.action, type(discord.AuditLogAction.ban)):
-        #         await ochannel.send(f"**{entry.user.name}** banned **{entry.target.name}** from the server.")
-        #         return
 
-        # await ochannel.send(f'**{member}** has left the server.')
+        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.kick):
+            entry_time = entry.created_at.strftime('%x %X')
+
+            if entry_time == curr_time:
+                await self.O_CHANNEL.send(f"**{entry.user.name}** kicked **{entry.target.name}** from the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
+                return
+
+        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.ban):
+            entry_time = entry.created_at.strftime('%x %X')
+
+            if entry_time == curr_time:
+                await self.O_CHANNEL.send(f"**{entry.user.name}** banned **{entry.target.name}** from the server\nReason: **`{entry.reason}`**\n`Timestamp: {datetime.today().strftime('%x %X')}`")
+                return
+
+        await self.O_CHANNEL.send(f"**{member}** has left the server.`Timestamp: {datetime.today().strftime('%x %X')}`")
+
+
+     # On Member Unban
+
+    @commands.Cog.listener()
+    async def on_member_unban(self, _, member: Member):
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
+        self.EC_GUILD = self.bot.get_guild(int(self.EC_GUILD_GET))
+
+        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.unban):
+            await self.O_CHANNEL.send(f"**{entry.user.name}** unbanned **{entry.target}** from the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
 
     # On Member Join Message
 
     @commands.Cog.listener()
-    async def on_member_join(self, member: discord.Member):
-        ochannel = self.bot.get_channel(int(self.PURGATORY_CHAN))
+    async def on_member_join(self, member: Member):
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
 
-        await ochannel.send(f'**{member.name}** has joined the server.')
+        await self.O_CHANNEL.send(f"**{member.name}** has joined the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
 
         embed = discord.Embed(
             title="Welcome to Elite Casual's Discord Server",
@@ -62,24 +83,25 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
-        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
-        ec_guild = self.bot.get_guild(int(self.EC_GUILD))
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
+        self.EC_GUILD = self.bot.get_guild(int(self.EC_GUILD_GET))
+
         new_role = [role for role in after.roles if role not in before.roles]
         old_role = [role for role in before.roles if role not in after.roles]
 
         if old_role:
-            async for entry in ec_guild.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
+            async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
                 if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
                     pass
                 else:
-                    await ochannel.send(f"**{entry.user.name}** removed the `{old_role[0].name}` role from **{entry.target.name}**.")
+                    await self.O_CHANNEL.send(f"**{entry.user.name}** removed the `{old_role[0].name}` role from **{entry.target.name}**. `Timestamp: {datetime.today().strftime('%x %X')}`")
         
         if new_role:
-            async for entry in ec_guild.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
+            async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
                 if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
                     pass
                 else:
-                    await ochannel.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.name}**.")
+                    await self.O_CHANNEL.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.name}**. `Timestamp: {datetime.today().strftime('%x %X')}`")
 
 
 def setup(bot):

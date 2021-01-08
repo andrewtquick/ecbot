@@ -33,6 +33,14 @@ class Miscellaneous(commands.Cog):
             else:
                 await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\nRemember, the link is active for `{int(m)}m {int(s)}s` and can be used `{uses}` times.\n\n{inv_link}')
 
+     # Elite Casuals Guild Logo Command
+
+    @Command(
+        name='logo',
+        help="Links the Elite Casual's logo")
+    async def logo(self, ctx: Context):
+        await ctx.send(f'{ctx.author.mention} -> Here you are!\nhttps://i.imgur.com/gYeYMCM.png')
+
     # Feature Command
 
     @Command(
@@ -46,8 +54,7 @@ class Miscellaneous(commands.Cog):
             2. Item Lookup
             3. Raid Guide Links
             4. Mythic+ Guide Links
-            5. Class Guide Links
-            6. Profession Guide Links
+            5. Profession Guide Links
             If you think there is something that would be worth adding, please let Xylr know.''')
 
     # WoW Token Price Getter
@@ -63,6 +70,8 @@ class Miscellaneous(commands.Cog):
         price = [i for i in price]
         price.insert(3,',')
         await ctx.send(f"{ctx.author.mention} -> **WoW Token Price is currently:** `{''.join(price)}g`")
+
+    # Method for grabbing access token to Blizzard API
 
     def blizzard_access_token(self):
         data = { 'grant_type' : 'client_credentials' }

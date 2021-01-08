@@ -1,6 +1,5 @@
 import discord
 import os
-# from discord import Guild as Guild
 from discord.ext import commands
 
 intents = discord.Intents.default()
@@ -13,7 +12,8 @@ exts = [
     'cogs.error_handler',
     'cogs.admin',
     'cogs.misc',
-    'cogs.events'
+    'cogs.events',
+    'cogs.wow_class'
 ]
 
 if __name__ == '__main__':
