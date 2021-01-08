@@ -1,6 +1,7 @@
 import discord
 import os
-import datetime
+from datetime import datetime, timedelta
+from discord import Member as Member
 from discord.ext import commands
 from discord.ext.commands import command as Command
 from discord.ext.commands import Context
@@ -13,46 +14,46 @@ class Events(commands.Cog):
         self.PURG_CHAN_GET = os.getenv('PURGATORY_CHAN')
         self.EC_GUILD_GET = os.getenv('GUILD')
 
-        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
-        self.EC_GUILD = self.bot.get_guild(int(self.EC_GUILD_GET))
-
     # On Ready
 
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'{self.bot.user.name} online.')
-        print(f"Current Time: {datetime.datetime.today().strftime('%x %X')}")
+        print(f"Current Time: {datetime.today().strftime('%x %X')}")
         await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='.help command'))
 
-    # On Member Remove or Leave
+    # On Member Leave, Kick, Ban, and Unban
 
     @commands.Cog.listener()
-    async def on_member_remove(self, member: discord.Member):
+    async def on_member_remove(self, member: Member):
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
+        self.EC_GUILD = self.bot.get_guild(int(self.EC_GUILD_GET))
 
-        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.kick):
+        curr_time_add_hrs = datetime.today() + timedelta(hours=5)
+        curr_time = curr_time_add_hrs.strftime('%x %X')
+
+
+        async for entry in self.EC_GUILD.audit_logs(limit=1):
             entry_time = entry.created_at.strftime('%x %X')
-            curr_time_hrs = datetime.datetime.today() + datetime.timedelta(hours=5)
-            curr_time = curr_time_hrs.strftime('%x %X')
 
             if isinstance(entry.action, type(discord.AuditLogAction.kick)) and entry_time == curr_time:
-                await self.O_CHANNEL.send(f"**{entry.user.name}** kicked **{entry.target.name}** from the server.")
+                await self.O_CHANNEL.send(f"**{entry.user.name}** kicked **{entry.target.name}** from the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
+                return
+            elif isinstance(entry.action, type(discord.AuditLogAction.ban)) and entry_time == curr_time:
+                await self.O_CHANNEL.send(f"**{entry.user.name}** banned **{entry.target.name}** from the server\nReason: **`{entry.reason}`**\n`Timestamp: {datetime.today().strftime('%x %X')}`")
+                return
+            elif isinstance(entry.action, type(discord.AuditLogAction.unban)) and entry_time == curr_time:
+                await self.O_CHANNEL.send(f"**{entry.user.name}** unbanned **{entry.target}** from the server. `Timestamp: {datetime.today().strftime('%x %X')}`")
                 return
 
         await self.O_CHANNEL.send(f'**{member}** has left the server.')
 
-    # On Member Ban
-
-    @commands.Cog.listener()
-    async def on_member_ban(self):
-
-        async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.ban):
-            if isinstance(entry.action, type(discord.AuditLogAction.ban)):
-                await self.O_CHANNEL.send(f"**{entry.user.name}** banned **{entry.target.name}** from the server.")
-
     # On Member Join Message
 
     @commands.Cog.listener()
-    async def on_member_join(self, member: discord.Member):
+    async def on_member_join(self, member: Member):
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
+
         await self.O_CHANNEL.send(f'**{member.name}** has joined the server.')
 
         embed = discord.Embed(
@@ -70,6 +71,9 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
+        self.O_CHANNEL = self.bot.get_channel(int(self.O_CHAN_GET))
+        self.EC_GUILD = self.bot.get_guild(int(self.EC_GUILD_GET))
+
         new_role = [role for role in after.roles if role not in before.roles]
         old_role = [role for role in before.roles if role not in after.roles]
 
