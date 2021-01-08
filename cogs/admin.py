@@ -20,7 +20,7 @@ class AdminControl(commands.Cog):
         aliases=['k'],
         help='*Requires Admin* Kick a user from the server.',
         usage='@user <reason>')
-    @commands.has_any_role('Admin', 'Guild Master')
+    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def kick(self, ctx: Context, member: Member, *, reason='No reason given.'):
         ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('kick', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
@@ -35,7 +35,7 @@ class AdminControl(commands.Cog):
         aliases=['b'],
         help='*Requires Admin* Ban a user from the server.',
         usage='@user <reason>')
-    @commands.has_any_role('Admin', 'Guild Master')
+    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def ban(self, ctx: Context, member: Member, *, reason='No reason given.'):
         ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('ban', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
@@ -50,7 +50,7 @@ class AdminControl(commands.Cog):
         aliases=['m'],
         help='*Requires Admin* Mute a user in the voice channel.',
         usage='@user')
-    @commands.has_any_role('Admin', 'Guild Master')
+    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def mute(self, ctx: Context, member: Member, *, reason='No reason given.'):
         ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('mute', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
@@ -65,7 +65,7 @@ class AdminControl(commands.Cog):
         aliases=['d'],
         help='*Requires Admin* Deafen a user in the voice channel.',
         usage='@user')
-    @commands.has_any_role('Admin', 'Guild Master')
+    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def deafen(self, ctx: Context, member: Member, *, reason='No reason given.'):
         ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
         embed = self.embed_creator('deafen', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
@@ -80,7 +80,7 @@ class AdminControl(commands.Cog):
         aliases=['a'],
         help='*Requires Admin* Send an announcement to the announcement channel.',
         usage='message')
-    @commands.has_any_role('Admin', 'Guild Master')
+    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def announce(self, ctx: Context, *, msg: str):
         announce_chan = self.bot.get_channel(int(self.ANNOUNCE_CHAN))
         await announce_chan.send(msg)
