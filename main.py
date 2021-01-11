@@ -13,7 +13,8 @@ exts = [
     'cogs.admin',
     'cogs.misc',
     'cogs.events',
-    'cogs.wow_class'
+    'cogs.wow_class',
+    'cogs.raids'
 ]
 
 if __name__ == '__main__':

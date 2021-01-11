@@ -98,10 +98,10 @@ class AdminControl(commands.Cog):
         ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
              
         if role in member.roles:
-            await ctx.send(f'{ctx.author.mention} -> **{member.name}** already has that role.')
+            await ctx.send(f'{ctx.author.mention} -> **{member.name}** already has that role.', delete_after=60)
         else:
             await member.add_roles(role, atomic=True)
-            await ctx.send(f'{ctx.author.mention} -> Added `Friends and Family` rank to **{member.name}**')
+            await ctx.send(f'{ctx.author.mention} -> Added `Friends and Family` rank to **{member.name}**', delete_after=60)
             await ochannel.send(f"**{ctx.author.name}** added the `Friends and Family` rank to **{member.name}**. `Timestamp: {dt.today().strftime('%x %X')}`")
 
     # Rules Command

@@ -1,7 +1,6 @@
 import discord
 import os
 import requests
-# from datetime import datetime as dt
 from discord import Member
 from discord.ext import commands
 from discord.ext.commands import command as Command
@@ -25,13 +24,13 @@ class Miscellaneous(commands.Cog):
     async def link(self, ctx: Context, limit=600, uses=0):
         inv_link = await ctx.channel.create_invite(max_age=limit, max_uses=uses, unique=True)
         if limit == 0 and uses == 0:
-            await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\n{inv_link}')
+            await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\n{inv_link}', delete_after=60)
         else:
             m, s = divmod(float(limit), 60)
             if uses == 0:
-                await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\nRemember, the link is active for `{int(m)}m {int(s)}s`.\n\n{inv_link}')
+                await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\nRemember, the link is active for `{int(m)}m {int(s)}s`.\n\n{inv_link}', delete_after=60)
             else:
-                await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\nRemember, the link is active for `{int(m)}m {int(s)}s` and can be used `{uses}` times.\n\n{inv_link}')
+                await ctx.send(f'{ctx.author.mention} -> Here is your link.\n\nRemember, the link is active for `{int(m)}m {int(s)}s` and can be used `{uses}` times.\n\n{inv_link}', delete_after=60)
 
      # Elite Casuals Guild Logo Command
 
@@ -55,7 +54,7 @@ class Miscellaneous(commands.Cog):
             3. Raid Guide Links
             4. Mythic+ Guide Links
             5. Profession Guide Links
-            If you think there is something that would be worth adding, please let Xylr know.''')
+            If you think there is something that would be worth adding, please let Xylr know.''', delete_after=60)
 
     # WoW Token Price Getter
 
