@@ -18,7 +18,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:blood:797202712214765598> Blood, <:frost:797201016860049488> Frost, or <:unholy:797202712193138709> Unholy?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'blood':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Blood Guide on WowHead\nhttps://www.wowhead.com/blood-death-knight-guide', delete_after=60)
@@ -44,7 +44,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:havoc:797204927897665568> Havoc or <:vengeance:797204927939739658> Vengeance?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'havoc':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Havoc Guide on WowHead\nhttps://www.wowhead.com/havoc-demon-hunter-guide', delete_after=60)
@@ -68,7 +68,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:feral:797202712156307507> Feral, <:guardian:797202712369561601> Guardian, <:restoration:797202712382537767> Resto, or <:balance:797202712156307566> Balance?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'feral' or msg.content.lower() == 'cat':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Feral Guide on WowHead\nhttps://www.wowhead.com/feral-druid-guide', delete_after=60)
@@ -99,7 +99,7 @@ class WowClass(commands.Cog):
 
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:marksman:797202712306647070> Marksmanship, <:beastmastery:797202712143069194> Beast Mastery, or <:survival:797202712525537290> Survival?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'bm' or msg.content.lower() == 'beast' or msg.content.lower() == 'beast mastery':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Beast Mastery on WowHead\nhttps://www.wowhead.com/beast-mastery-hunter-guide', delete_after=60)
@@ -125,7 +125,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:mfire:797202712209915975> Fire, <:mfrost:797202712448991262> Frost, or <:arcane:790339486600921158> Arcane?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'fire':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Fire Guide on WowHead\nhttps://www.wowhead.com/fire-mage-guide', delete_after=60)
@@ -151,7 +151,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:brewmaster:797202712143724574> Brewmaster, <:windwalker:797202712180686869> Windwalker, or <:mistweaver:797202712382275654> Mistweaver?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'brewmaster' or msg.content.lower() == 'bm':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Brewmaster Guide on WowHead\nhttps://www.wowhead.com/brewmaster-monk-guide', delete_after=60)
@@ -178,7 +178,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:protection:797202712282398731> Protection, <:retribution:797202712357896253> Retribution, or <:pholy:797202712092606525> Holy?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'retribution' or msg.content.lower() == 'ret':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Retribution Guide on WowHead\nhttps://www.wowhead.com/retribution-paladin-guide', delete_after=60)
@@ -204,7 +204,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:discipline:797202712004526172> Discipline, <:shadow:797202712374280243> Shadow, or <:holy:797202712479006810> Holy?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'discipline' or msg.content.lower() == 'disc':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Discipline Guide on WowHead\nhttps://www.wowhead.com/discipline-priest-guide', delete_after=60)
@@ -230,7 +230,7 @@ class WowClass(commands.Cog):
         
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:assassination:797202712290787399> Assassination, <:subtlety:797206736041803796> Subtlety, or <:outlaw:797202712310841354> Outlaw?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'assassination' or msg.content.lower() == 'ass':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Assassination Guide on WowHead\nhttps://www.wowhead.com/assassination-rogue-guide', delete_after=60)
@@ -257,7 +257,7 @@ class WowClass(commands.Cog):
 
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:enhancement:797202712160501770> Enhancement, <:elemental:797202712247795772> Elemental, or <:srestoration:797202712382668800> Resto?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'enhancement' or msg.content.lower() == 'enh':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Enhancement Guide on WowHead\nhttps://www.wowhead.com/enhancement-shaman-guide', delete_after=60)
@@ -284,7 +284,7 @@ class WowClass(commands.Cog):
 
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:affliction:797202711870701579> Affliction, <:demonology:797202712194318387> Demonology, or <:destruction:797202712114233375> Destruction?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'affliction' or msg.content.lower() == 'aff':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Affliction Guide on WowHead\nhttps://www.wowhead.com/affliction-warlock-guide', delete_after=60)
@@ -311,7 +311,7 @@ class WowClass(commands.Cog):
 
         if spec == None:
             await ctx.send(f'{ctx.author.mention} -> Which spec? <:arms:797202712201527316> Arms, <:fury:797202712264704000>  Fury, or <:wprotection:797202712718082068> Protection?', delete_after=60)
-            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=5)
+            msg = await self.bot.wait_for('message', check=lambda message: message.author == ctx.author, timeout=10)
 
             if msg.content.lower() == 'arms':
                 await ctx.send(f'{ctx.author.mention} -> Here is the Arms Guide on WowHead\nhttps://www.wowhead.com/arms-warrior-guide', delete_after=60)
@@ -330,7 +330,7 @@ class WowClass(commands.Cog):
     # WarcraftLogs How-to Command
 
     @Command(
-        name='WarcraftLogs',
+        name='warcraftlogs',
         aliases=['wl'],
         help='This will link a YouTube Video for how to examine WarcraftLogs to increase your performance.')
     async def warcraft_logs(self, ctx: Context):
@@ -339,7 +339,7 @@ class WowClass(commands.Cog):
     # DPS Ranks Command
 
     @Command(
-        name='Ranks',
+        name='ranks',
         help='Displays the current DPS Ranks in raid')
     async def ranks(self, ctx: Context):
         await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://wow.zamimg.com/uploads/screenshots/normal/1006860.png")
