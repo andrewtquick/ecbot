@@ -55,7 +55,6 @@ class WowClass(commands.Cog):
             await ctx.send(f'{ctx.author.mention} -> Here is the Havoc Guide on WowHead\nhttps://www.wowhead.com/havoc-demon-hunter-guide', delete_after=60)
         if spec.lower() == 'vengeance' or spec.lower() == 'veng':
             await ctx.send(f'{ctx.author.mention} -> Here is the Vengeance Guide on WowHead\nhttps://www.wowhead.com/vengeance-demon-hunter-guide', delete_after=60)
-
     
     # Druid Command
 
