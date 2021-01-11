@@ -47,14 +47,7 @@ class Miscellaneous(commands.Cog):
         aliases=['f'],
         help='List of upcoming features for EC Bot')
     async def features(self, ctx: Context):
-        await ctx.send(
-            f'''{ctx.author.mention} -> Here are some features Xylr is currently working on:\n
-            1. Item Price Lookup
-            2. Item Lookup
-            3. Raid Guide Links
-            4. Mythic+ Guide Links
-            5. Profession Guide Links
-            If you think there is something that would be worth adding, please let Xylr know.''', delete_after=60)
+        await ctx.send(f'{ctx.author.mention} -> Here are some features Xylr is currently working on:\n```1. Item Price Lookup\n2. Item Lookup\n3. Mythic+ Guide Links\n4. Profession Guide Links\n```\nIf you think there is something that would be worth adding, please let Xylr know.''', delete_after=60)
 
     # WoW Token Price Getter
 

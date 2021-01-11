@@ -49,7 +49,6 @@ class Events(commands.Cog):
 
         await self.O_CHANNEL.send(f"**{member}** has left the server.`Timestamp: {datetime.today().strftime('%x %X')}`")
 
-
      # On Member Unban
 
     @commands.Cog.listener()
