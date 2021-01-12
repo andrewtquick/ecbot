@@ -17,7 +17,7 @@ class CogControl(commands.Cog):
         except Exception as err:
             await ctx.send(f'{ctx.author.mention} -> **`### ERROR ###`**: {type(err).__name__} - {err}')
         else:
-            await ctx.send(f'{ctx.author.mention} -> **`### SUCCESS ###`** {cog} has been loaded.')
+            await ctx.send(f'{ctx.author.mention} -> **`### SUCCESS ###`** {cog} has been loaded.', delete_after=10)
 
     @Command(name='unload', hidden=True, aliases=['u'])
     @commands.has_role('Guild Master')
@@ -28,7 +28,7 @@ class CogControl(commands.Cog):
         except Exception as err:
             await ctx.send(f'{ctx.author.mention} -> **`### ERROR ###`**: {type(err).__name__} - {err}')
         else:
-            await ctx.send(f'{ctx.author.mention} -> **`### SUCCESS ###`** {cog} has been unloaded.')
+            await ctx.send(f'{ctx.author.mention} -> **`### SUCCESS ###`** {cog} has been unloaded.', delete_after=10)
 
     @Command(name='reload', hidden=True, aliases=['r'])
     @commands.has_role('Guild Master')
@@ -41,7 +41,7 @@ class CogControl(commands.Cog):
         except Exception as err:
             await ctx.send(f'{ctx.author.mention} -> **`### ERROR ###`**: {type(err).__name__} - {err}')
         else:
-            await ctx.send(f'{ctx.author.mention} -> **`### SUCCESS ###`** {cog} has been reloaded.')
+            await ctx.send(f'{ctx.author.mention} -> **`### SUCCESS ###`** {cog} has been reloaded.', delete_after=10)
 
     @Command(name='cogs', hidden=True, aliases=['c'])
     @commands.has_role('Guild Master')
@@ -49,7 +49,7 @@ class CogControl(commands.Cog):
     async def list_cogs(self, ctx: Context):
         cogs = self.bot.extensions.keys()
         cog_name = ', '.join(cogs)
-        await ctx.send(f"{ctx.author.mention} Currently loaded cogs: **`{cog_name}`**")
+        await ctx.send(f"{ctx.author.mention} Currently loaded cogs: **`{cog_name}`**", delete_after=10)
 
 def setup(bot):
     bot.add_cog(CogControl(bot))
