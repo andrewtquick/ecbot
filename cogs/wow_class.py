@@ -12,7 +12,7 @@ class WowClass(commands.Cog):
 
     @Command(
         name='dk',
-        help='Displays class information for Death Knight.',
+        help='Displays class guide for Death Knight',
         usage='frost\n.dk blood\n.dk unholy')
     async def death_knight(self, ctx: Context, *, spec=None):
         
@@ -38,7 +38,7 @@ class WowClass(commands.Cog):
 
     @Command(
         name='dh',
-        help='Displays class information for Demon Hunter',
+        help='Displays class guide for Demon Hunter',
         usage='havoc\n.dh vengeance')
     async def demon_hunter(self, ctx: Context, *, spec=None):
         
@@ -61,7 +61,7 @@ class WowClass(commands.Cog):
     @Command(
         name='druid',
         aliases=['dr'],
-        help='Displays class information for Druid',
+        help='Displays class guide for Druid',
         usage='feral\n.druid guardian\n.druid resto\n.dr boomkin')
     async def druid(self, ctx: Context, *, spec=None):
         
@@ -92,7 +92,7 @@ class WowClass(commands.Cog):
     @Command(
         name='hunter',
         aliases=['hunt'],
-        help='Displays class information for Hunter',
+        help='Displays class guide for Hunter',
         usage='mm\n.hunter bm\n.hunter surv')
     async def hunter(self, ctx: Context, *, spec=None):
 
@@ -118,7 +118,7 @@ class WowClass(commands.Cog):
 
     @Command(
         name='mage',
-        help='Displays class information for Mage',
+        help='Displays class guide for Mage',
         usage='fire\n.mage frost\n .mage arcane')
     async def mage(self, ctx: Context, *, spec=None):
         
@@ -144,7 +144,7 @@ class WowClass(commands.Cog):
 
     @Command(
         name='monk',
-        help='Displays class information for Monk',
+        help='Displays class guide for Monk',
         usage='bm\n.monk windwalker\n.monk mist')
     async def monk(self, ctx: Context, *, spec=None):
         
@@ -171,7 +171,7 @@ class WowClass(commands.Cog):
     @Command(
         name='paladin',
         aliases=['paly'],
-        help='Displays class information for Paladin',
+        help='Displays class guide for Paladin',
         usage='prot\n.paly retribution\n.paly holy')
     async def paladin(self, ctx: Context, *, spec=None):
         
@@ -197,7 +197,7 @@ class WowClass(commands.Cog):
 
     @Command(
         name='priest',
-        help='Displays class information for Priest',
+        help='Displays class guide for Priest',
         usage='shadow\n.priest disc\n.priest holy')
     async def priest(self, ctx: Context, *, spec=None):
         
@@ -223,7 +223,7 @@ class WowClass(commands.Cog):
 
     @Command(
         name='rogue',
-        help='Displays class information for Rogue',
+        help='Displays class guide for Rogue',
         usage='sub\n.rogue ass\n.rogue outlaw')
     async def rogue(self, ctx: Context, *, spec=None):
         
@@ -250,7 +250,7 @@ class WowClass(commands.Cog):
     @Command(
         name='shaman',
         aliases=['sham'],
-        help='Displays class information for Shaman',
+        help='Displays class guide for Shaman',
         usage='resto\n.shaman enh\n.sham elemental')
     async def shaman(self, ctx: Context, *, spec=None):
 
@@ -277,7 +277,7 @@ class WowClass(commands.Cog):
     @Command(
         name='warlock',
         aliases=['lock'],
-        help='Displays class information for Warlock',
+        help='Displays class guide for Warlock',
         usage='aff\n.lock destro\n.warlock demonology')
     async def warlock(self, ctx: Context, *, spec=None):
 
@@ -304,7 +304,7 @@ class WowClass(commands.Cog):
     @Command(
         name='warrior',
         aliases=['warr'],
-        help='Displays class information for Warrior',
+        help='Displays class guide for Warrior',
         usage='prot\n.warrior arms\n.warr fury')
     async def warrior(self, ctx: Context, *, spec=None):
 
