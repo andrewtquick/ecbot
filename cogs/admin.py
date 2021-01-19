@@ -1,5 +1,6 @@
 import discord
 import os
+import pytz
 from datetime import datetime as dt
 from discord import Member
 from discord.ext import commands
@@ -12,6 +13,7 @@ class AdminControl(commands.Cog):
         self.bot = bot
         self.OFFICER_CHANNEL = os.getenv('OFFICER_CHANNEL')
         self.ANNOUNCE_CHAN = os.getenv('ANNOUNCE_CHAN')
+        self.tz = pytz.timezone('America/New_York')
 
     # Kick Command
 
@@ -19,14 +21,10 @@ class AdminControl(commands.Cog):
         name='kick',
         aliases=['k'],
         help='*Requires Admin* Kick a user from the server.',
-        usage='@user <reason>')
+        usage='@user')
     @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
-    async def kick(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
-        embed = self.embed_creator('kick', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
-        await member.kick(reason=reason)
-        await ctx.send(f'**{member.name}** has been kicked.')
-        await ochannel.send(embed=embed)
+    async def kick(self, ctx: Context, member: Member):
+        await member.kick()
 
     # Ban command
 
@@ -37,11 +35,7 @@ class AdminControl(commands.Cog):
         usage='@user <reason>')
     @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def ban(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
-        embed = self.embed_creator('ban', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
         await member.ban(reason=reason)
-        await ctx.send(f'**{member.name}** has been banned.')
-        await ochannel.send(embed=embed)
 
     # Mute Command
 
@@ -52,11 +46,7 @@ class AdminControl(commands.Cog):
         usage='@user')
     @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def mute(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
-        embed = self.embed_creator('mute', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
         await member.edit(mute=True)
-        await ctx.send(f'**{member.name}** has been muted.')
-        await ochannel.send(embed=embed)
 
     # Deafen Command
 
@@ -67,12 +57,8 @@ class AdminControl(commands.Cog):
         usage='@user')
     @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
     async def deafen(self, ctx: Context, member: Member, *, reason='No reason given.'):
-        ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
-        embed = self.embed_creator('deafen', ctx.message.author.name, member.name, reason, ctx.message.author.avatar_url)
         await member.edit(deafen=True)
-        await ctx.send(f'**{member.name}** has been deafened.')
-        await ochannel.send(embed=embed)
-
+ 
     # Announcement Command
 
     @Command(
@@ -102,7 +88,7 @@ class AdminControl(commands.Cog):
         else:
             await member.add_roles(role, atomic=True)
             await ctx.send(f'{ctx.author.mention} -> Added `Friends and Family` rank to **{member.name}**', delete_after=60)
-            await ochannel.send(f"**{ctx.author.name}** added the `Friends and Family` rank to **{member.name}**. `Timestamp: {dt.today().strftime('%x %X')}`")
+            await ochannel.send(f"**{ctx.author.name}** added the `Friends and Family` rank to **{member.name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
 
     # Rules Command
 
@@ -121,19 +107,6 @@ class AdminControl(commands.Cog):
         help='Displays the Guild and Discord Leadership')
     async def leadership(self, ctx: Context):
         await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr (Reidx)\nDiamondclaw\nZellah\n\nRaid Lead:\nNock the Block```')
-
-    # Embed Creator for Admin Commands
-
-    def embed_creator(self, cmd, author, member, reason, avatar):
-
-        embed = discord.Embed(
-            title='Admin Command Used',
-            description=f'{cmd.capitalize()} used by **{author}**',
-            colour=discord.Colour.red())
-        embed.set_thumbnail(url=avatar)
-        embed.add_field(name=f'Reason', value=f'Reason: `{reason}`')
-        embed.set_footer(text=f'Timestamp: {dt.now().ctime()}', icon_url=self.bot.user.avatar_url)
-        return embed
 
 def setup(bot):
     bot.add_cog(AdminControl(bot))
