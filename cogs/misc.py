@@ -49,6 +49,15 @@ class Miscellaneous(commands.Cog):
     async def features(self, ctx: Context):
         await ctx.send(f'{ctx.author.mention} -> Here are some features Xylr is currently working on:\n```1. Item Price Lookup\n2. Item Lookup\n3. Mythic+ Guide Links\n4. Profession Guide Links\n```\nIf you think there is something that would be worth adding, please let Xylr know.''', delete_after=60)
 
+    # Youtube Channel Command
+
+    @Command(
+        name='youtube',
+        aliases=['yt'],
+        help='Links the Elite Casuals Youtube Channel')
+    async def youtube(self, ctx: Context):
+        await ctx.send(f"{ctx.author.mention} -> Here is the Youtube link. https://www.youtube.com/channel/UCWeTRksGtMyXUd_Kn_f-svg")
+
     # WoW Token Price Getter
 
     @Command(
