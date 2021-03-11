@@ -341,7 +341,7 @@ class WowClass(commands.Cog):
         name='ranks',
         help='Displays the current DPS Ranks in raid')
     async def ranks(self, ctx: Context):
-        await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://wow.zamimg.com/uploads/screenshots/normal/1016785.png")
+        await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://i.imgur.com/vFhfq0V.png")
     
 
 def setup(bot):
