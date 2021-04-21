@@ -13,7 +13,6 @@ exts = [
     'cogs.admin',
     'cogs.misc',
     'cogs.events',
-    'cogs.wow_class',
     'cogs.raids'
 ]
 
