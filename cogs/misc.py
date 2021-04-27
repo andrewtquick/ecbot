@@ -83,7 +83,7 @@ class Miscellaneous(commands.Cog):
         name='ranks',
         help='Displays the current DPS Ranks in raid')
     async def ranks(self, ctx: Context):
-        await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://wow.zamimg.com/uploads/blog/images/23384-analysis-of-shadowlands-dps-in-mythic-castle-nathria-patch-9-0-5-week-of-april.png")
+        await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://wow.zamimg.com/uploads/screenshots/normal/1021854.png")
 
 def setup(bot):
     bot.add_cog(Miscellaneous(bot))
