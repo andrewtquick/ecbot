@@ -78,7 +78,6 @@ class AdminControl(commands.Cog):
         aliases=['ff'],
         help='Adds the Friends and Family role to a user.',
         usage='@user')
-    @commands.has_any_role('Admin', 'Guild Master', 'Elite', 'Mythic+')
     async def friends_family(self, ctx: Context, member: Member):
         role = discord.utils.get(ctx.guild.roles, name='Friends and Family')
         ochannel = self.bot.get_channel(int(self.OFFICER_CHANNEL))
