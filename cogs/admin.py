@@ -22,7 +22,7 @@ class AdminControl(commands.Cog):
         aliases=['k'],
         help='*Requires Admin* Kick a user from the server.',
         usage='@user')
-    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def kick(self, ctx: Context, member: Member):
         await member.kick()
 
@@ -33,7 +33,7 @@ class AdminControl(commands.Cog):
         aliases=['b'],
         help='*Requires Admin* Ban a user from the server.',
         usage='@user <reason>')
-    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def ban(self, ctx: Context, member: Member, *, reason='No reason given.'):
         await member.ban(reason=reason)
 
@@ -44,7 +44,7 @@ class AdminControl(commands.Cog):
         aliases=['m'],
         help='*Requires Admin* Mute a user in the voice channel.',
         usage='@user')
-    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def mute(self, ctx: Context, member: Member, *, reason='No reason given.'):
         await member.edit(mute=True)
 
@@ -55,7 +55,7 @@ class AdminControl(commands.Cog):
         aliases=['d'],
         help='*Requires Admin* Deafen a user in the voice channel.',
         usage='@user')
-    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def deafen(self, ctx: Context, member: Member, *, reason='No reason given.'):
         await member.edit(deafen=True)
  
@@ -66,7 +66,7 @@ class AdminControl(commands.Cog):
         aliases=['a'],
         help='*Requires Admin* Send an announcement to the announcement channel.',
         usage='message')
-    @commands.has_any_role('Admin', 'Guild Master', 'Raid Lead')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def announce(self, ctx: Context, *, msg: str):
         announce_chan = self.bot.get_channel(int(self.ANNOUNCE_CHAN))
         await announce_chan.send(msg)
@@ -105,7 +105,7 @@ class AdminControl(commands.Cog):
         aliases=['gl'],
         help='Displays the Guild and Discord Leadership')
     async def leadership(self, ctx: Context):
-        await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr (Reidx)\nDiamondclaw\nZellah\n\nRaid Lead:\nNock the Block```')
+        await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr (Reidx)\nDiamondclaw\nZellah\n\nAdvisor:\nJaemyst```')
 
 def setup(bot):
     bot.add_cog(AdminControl(bot))
