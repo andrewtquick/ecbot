@@ -1,6 +1,7 @@
 import discord
 import os
 import requests
+from random import randint as random
 from discord import Member
 from discord.ext import commands
 from discord.ext.commands import command as Command
@@ -58,6 +59,15 @@ class Miscellaneous(commands.Cog):
     async def youtube(self, ctx: Context):
         await ctx.send(f"{ctx.author.mention} -> Here is the Youtube link. https://www.youtube.com/channel/UCWeTRksGtMyXUd_Kn_f-svg")
 
+    # Twitch TV Command
+
+    @Command(
+        name='twitch',
+        aliases=['ttv'],
+        help="Links to Xylr's Live Twitch Stream")
+    async def twitch(self, ctx: Context):
+        await ctx.send(f"{ctx.author.mention} -> Here is Xylr's Stream. http://www.twitch.tv/xylr")
+
     # WoW Token Price Getter
 
     @Command(
@@ -79,11 +89,57 @@ class Miscellaneous(commands.Cog):
         resp = requests.post('https://us.battle.net/oauth/token', data=data, auth=(self.CLIENT_ID, self.CLIENT_SECRET)).json()
         return resp['access_token']
 
+    # Ranks Command
+
     @Command(
         name='ranks',
         help='Displays the current DPS Ranks in raid')
     async def ranks(self, ctx: Context):
         await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://wow.zamimg.com/uploads/blog/images/23554-analysis-of-shadowlands-dps-in-mythic-castle-nathria-patch-9-0-5-week-of-april.png")
+
+    # 8-ball Command
+
+    @Command(
+        name='8ball',
+        help='Ask the 8Ball a question')
+    async def eight_ball(self, ctx: Context, msg=''):
+
+        answers = [
+            'Maybe.',
+            'No.',
+            'HAHAHAHAH, in your dreams.',
+            'Likely not.',
+            'Possibly.',
+            'YES! ABSOLUTELY!',
+            'You wish.',
+            'Never.',
+            'Yup.',
+            'I believe so.',
+            'What do you think?',
+            'My answer starts with a Y and ends in S.',
+            'Spell it out with me, N... O...',
+            'You wasted my time with this question?',
+            "I don't know, but Jaina is a Dreadlord.",
+            "Garrosh did nothing wrong.",
+            'Green Jesus says absolutely not.',
+            "I DON'T KNOW!",
+            "I'm not a fortunate teller."]
+
+        no_message = [
+            'Hey dingbat, you have to ask me a question.',
+            'Stop wasting my time, ask me a question after the command.',
+            'Well, what was your question, nerd.',
+            'I think you forgot something, try .help 8ball',
+            "HEY, YOU DIDN'T ASK ME A QUESTION.",
+            'Want to try that again?',
+            "Bruh, I can't read minds. Next time ask me your question."]
+
+        if not msg:
+            random_answer = no_message[random(0, len(no_message)-1)]
+            await ctx.send(f'{ctx.author.mention} :: {random_answer}')
+        else:
+            random_answer = answers[random(0, len(no_message)-1)]
+            await ctx.send(f'{ctx.author.mention} :: {random_answer}')
 
 def setup(bot):
     bot.add_cog(Miscellaneous(bot))
