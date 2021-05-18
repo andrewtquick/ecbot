@@ -123,7 +123,8 @@ class Miscellaneous(commands.Cog):
             "Garrosh did nothing wrong.",
             'Green Jesus says absolutely not.',
             "I DON'T KNOW!",
-            "I'm not a fortunate teller."]
+            "I'm not a fortunate teller.",
+            "https://imgur.com/a/EklZPAu"]
 
         no_message = [
             'Hey dingbat, you have to ask me a question.',
