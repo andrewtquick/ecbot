@@ -105,7 +105,7 @@ class AdminControl(commands.Cog):
         aliases=['gl'],
         help='Displays the Guild and Discord Leadership')
     async def leadership(self, ctx: Context):
-        await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr (Reidx)\nDiamondclaw\nZellah\n\nAdvisor:\nJaemyst```')
+        await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr\nDiamondclaw\nZellah\n\nGuild Advisor:\nJaemyst\nFuzzybottomz```')
 
 def setup(bot):
     bot.add_cog(AdminControl(bot))
