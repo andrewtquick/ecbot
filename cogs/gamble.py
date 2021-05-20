@@ -104,10 +104,12 @@ class Gamble(commands.Cog):
 
     async def begin_roll(self):
 
-        test_embed = discord.Embed(title="Time to roll!", description=f"Type **.roll** now!")
-        test_embed.add_field(name='Current Gamblers', value='\n'.join(g for g in self.gamblers), inline=False)
+        roll_embed = discord.Embed(title="Time to roll!", description=f"Type **.roll** now!")
+        roll_embed.set_thumbnail(url='https://i.imgur.com/eWMZmVV.png')
+        roll_embed.add_field(name='Current Gamblers', value='\n'.join(g for g in self.gamblers), inline=False)
 
-        await self.chan.send(embed=test_embed)
+        await self.chan.send(embed=
+        roll_embed)
 
     @Command(name='roll', help='Type .roll to roll for the gambling session')
     async def roll(self, ctx: Context):
