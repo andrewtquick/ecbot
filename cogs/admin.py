@@ -60,14 +60,11 @@ class AdminControl(commands.Cog):
         if chan == None:
             await ctx.send(f'{ctx.author.mention} -> You must specify a voice channel. Use .help ma for assistance.')
         else:
-            channel = self.bot.get_channel(chan)
+            channel = self.bot.get_channel(int(chan))
             members = channel.members
-            print(channel)
-            print(members)
 
             for member in members:
                 await member.edit(mute=True)
-                print(member)
 
     # Un-Mute All Command
 
@@ -81,7 +78,7 @@ class AdminControl(commands.Cog):
         if chan == None:
             await ctx.send(f'{ctx.author.mention} -> You must specify a voicc channel. Use .help uma for assistance.')
         else:
-            channel = self.bot.get_channel(chan)
+            channel = self.bot.get_channel(int(chan))
             members = channel.members
 
             for member in members:
