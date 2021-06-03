@@ -54,7 +54,7 @@ class AdminControl(commands.Cog):
         name='muteall',
         aliases=['ma'],
         help='*Requires Admin* Mute all users in a voice channel.',
-        usage='#channel')
+        usage='<channel id>')
     @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def mute_all(self, ctx: Context, chan=None):
         if chan == None:
@@ -75,7 +75,7 @@ class AdminControl(commands.Cog):
         name='unmuteall',
         aliases=['uma'],
         help="*Requires Admin* Un-Mute all users in a voice channel.",
-        usage="#channel")
+        usage="<channel id>")
     @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def unmute_all(self, ctx: Context, chan=None):
         if chan == None:
