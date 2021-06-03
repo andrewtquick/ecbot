@@ -48,6 +48,45 @@ class AdminControl(commands.Cog):
     async def mute(self, ctx: Context, member: Member, *, reason='No reason given.'):
         await member.edit(mute=True)
 
+    # Mute All Command
+
+    @Command(
+        name='muteall',
+        aliases=['ma'],
+        help='*Requires Admin* Mute all users in a voice channel.',
+        usage='#channel')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
+    async def mute_all(self, ctx: Context, chan=None):
+        if chan == None:
+            await ctx.send(f'{ctx.author.mention} -> You must specify a voice channel. Use .help ma for assistance.')
+        else:
+            channel = self.bot.get_channel(chan)
+            members = channel.members
+            print(channel)
+            print(members)
+
+            for member in members:
+                await member.edit(mute=True)
+                print(member)
+
+    # Un-Mute All Command
+
+    @Command(
+        name='unmuteall',
+        aliases=['uma'],
+        help="*Requires Admin* Un-Mute all users in a voice channel.",
+        usage="#channel")
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
+    async def unmute_all(self, ctx: Context, chan=None):
+        if chan == None:
+            await ctx.send(f'{ctx.author.mention} -> You must specify a voicc channel. Use .help uma for assistance.')
+        else:
+            channel = self.bot.get_channel(chan)
+            members = channel.members
+
+            for member in members:
+                await member.edit(mute=False)
+
     # Deafen Command
 
     @Command(
