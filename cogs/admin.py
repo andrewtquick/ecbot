@@ -84,6 +84,42 @@ class AdminControl(commands.Cog):
             for member in members:
                 await member.edit(mute=False)
 
+    # Squelch Command
+
+    @Command(
+        name='squelch',
+        aliases=['s'],
+        help='*Requires Admin* Deafens and Mutes all users in a voice channel.',
+        usage="<channel id>")
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
+    async def squelch(self, ctx: Context, chan=None):
+        if chan == None:
+            await ctx.send(f'{ctx.author.mention} -> You must specify a voice channel. Use .help s for assistance.')
+        else:
+            channel = self.bot.get_channel(int(chan))
+            members = channel.members
+
+            for member in members:
+                await member.edit(mute=True, deafen=True)
+
+    # Unsquelch Command
+
+    @Command(
+        name='unsquelch',
+        aliases=['us'],
+        help='*Requires Admin* Deafens and Mutes all users in a voice channel.',
+        usage="<channel id>")
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
+    async def unsquelch(self, ctx: Context, chan=None):
+        if chan == None:
+            await ctx.send(f'{ctx.author.mention} -> You must specify a voice channel. Use .help us for assistance.')
+        else:
+            channel = self.bot.get_channel(int(chan))
+            members = channel.members
+
+            for member in members:
+                await member.edit(mute=False, deafen=False)
+
     # Deafen Command
 
     @Command(
