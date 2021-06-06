@@ -93,7 +93,7 @@ class AdminControl(commands.Cog):
         help='*Requires Admin* Deafens and Mutes all users in a voice channel.',
         usage="<channel id>")
     @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
-    async def squelch(self, chan=None):
+    async def squelch(self, ctx: Context, chan=None):
         if chan == None:
             channel = self.bot.get_channel(int(self.AMONG_US_CHAN))
             members = channel.members
@@ -116,7 +116,7 @@ class AdminControl(commands.Cog):
         help='*Requires Admin* Deafens and Mutes all users in a voice channel.',
         usage="<channel id>")
     @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
-    async def unsquelch(self, chan=None):
+    async def unsquelch(self, ctx: Context, chan=None):
         if chan == None:
             channel = self.bot.get_channel(int(self.AMONG_US_CHAN))
             members = channel.members
