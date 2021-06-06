@@ -51,7 +51,7 @@ class Events(commands.Cog):
                     await self.O_CHANNEL.send(f"**{entry.user.name}** banned **{entry.target.name}** from the server\nReason: **`{entry.reason}`**\n`Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
                     return
 
-        await self.O_CHANNEL.send(f"**{member}** has left the server.`Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
+        await self.O_CHANNEL.send(f"**{member.display_name} ({member})** has left the server.`Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
 
      # On Member Unban
 
@@ -78,7 +78,8 @@ class Events(commands.Cog):
         embed.set_thumbnail(url='https://i.imgur.com/eWMZmVV.png')
         embed.add_field(name='📄 Server Rules 📄', value='❌ No Racism\n❌ No Politics Discussion\n❌ No Toxicity\n❌ No NSFW Content\n✅ Have fun!\n\n**These rules are zero tolerance.**\n\u200b', inline=False)
         embed.add_field(name='👑 Guild Leadership 👑', value='Xylr\nDiamondclaw\nZellah\n\u200b', inline=False)
-        embed.add_field(name='❔ Looking to raid or just hang out? ❔', value='Please be sure to reach out to the guild leadership with your intention.', inline=False)
+        embed.add_field(name='🔱 Guild Advisor 🔱', value='Jaemyst\nFuzzybottomz\n\u200b', inline=False)
+        embed.add_field(name='❔ Looking to raid? ❔', value='Please be sure to reach out to the guild leadership with your intention.', inline=False)
         await member.send('https://i.imgur.com/gYeYMCM.png')
         await member.send(embed=embed)
 
@@ -97,14 +98,22 @@ class Events(commands.Cog):
                 if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
                     pass
                 else:
-                    await self.O_CHANNEL.send(f"**{entry.user.name}** removed the `{old_role[0].name}` role from **{entry.target.name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
+                    await self.O_CHANNEL.send(f"**{entry.user.name}** removed the `{old_role[0].name}` role from **{entry.target.display_name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
         
         if new_role:
             async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
                 if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
                     pass
                 else:
-                    await self.O_CHANNEL.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
+                    await self.O_CHANNEL.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.display_name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
+
+        if before.nick != after.nick:
+            async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.member_update):
+                if before.name != entry.user.name:
+                    if entry.user.name != "ECDev" or entry.user.name != "Elite Casual Mod":
+                        await self.O_CHANNEL.send(f"**{entry.user.name}** changed `{before.name}`'s nickname to **{entry.target.display_name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
+                else:
+                    await self.O_CHANNEL.send(f"**{before}** changed their nickname to **{entry.target.display_name}** `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
 
 
 def setup(bot):

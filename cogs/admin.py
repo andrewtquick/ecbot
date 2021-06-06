@@ -13,6 +13,7 @@ class AdminControl(commands.Cog):
         self.bot = bot
         self.OFFICER_CHANNEL = os.getenv('OFFICER_CHANNEL')
         self.ANNOUNCE_CHAN = os.getenv('ANNOUNCE_CHAN')
+        self.AMONG_US_CHAN = os.getenv('AMOUNG_US_CHAN')
         self.tz = pytz.timezone('America/New_York')
 
     # Kick Command
@@ -92,9 +93,14 @@ class AdminControl(commands.Cog):
         help='*Requires Admin* Deafens and Mutes all users in a voice channel.',
         usage="<channel id>")
     @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
-    async def squelch(self, ctx: Context, chan=None):
+    async def squelch(self, chan=None):
         if chan == None:
-            await ctx.send(f'{ctx.author.mention} -> You must specify a voice channel. Use .help s for assistance.')
+            channel = self.bot.get_channel(int(self.AMONG_US_CHAN))
+            members = channel.members
+
+            for member in members:
+                await member.edit(mute=True, deafen=True)
+
         else:
             channel = self.bot.get_channel(int(chan))
             members = channel.members
@@ -110,9 +116,14 @@ class AdminControl(commands.Cog):
         help='*Requires Admin* Deafens and Mutes all users in a voice channel.',
         usage="<channel id>")
     @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
-    async def unsquelch(self, ctx: Context, chan=None):
+    async def unsquelch(self, chan=None):
         if chan == None:
-            await ctx.send(f'{ctx.author.mention} -> You must specify a voice channel. Use .help us for assistance.')
+            channel = self.bot.get_channel(int(self.AMONG_US_CHAN))
+            members = channel.members
+
+            for member in members:
+                await member.edit(mute=False, deafen=False)
+                
         else:
             channel = self.bot.get_channel(int(chan))
             members = channel.members
