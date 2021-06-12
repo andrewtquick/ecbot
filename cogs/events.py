@@ -83,7 +83,7 @@ class Events(commands.Cog):
         await member.send('https://i.imgur.com/gYeYMCM.png')
         await member.send(embed=embed)
 
-    # Member Role Update Notifier
+    # Member Role Update and Nickname Change Notifier
 
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
@@ -102,10 +102,13 @@ class Events(commands.Cog):
         
         if new_role:
             async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.member_role_update):
-                if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
-                    pass
+                if new_role[0].name == 'Server Booster':
+                    await self.O_CHANNEL.send(f"**{entry.user.name}** just boosted the server! `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
                 else:
-                    await self.O_CHANNEL.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.display_name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
+                    if entry.user.name == "ECDev" or entry.user.name == "Elite Casual Mod":
+                        pass
+                    else:
+                        await self.O_CHANNEL.send(f"**{entry.user.name}** added the `{new_role[0].name}` role to **{entry.target.display_name}**. `Timestamp: {dt.now(self.tz).strftime('%x %X')}`")
 
         if before.nick != after.nick:
             async for entry in self.EC_GUILD.audit_logs(limit=1, action=discord.AuditLogAction.member_update):
