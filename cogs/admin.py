@@ -190,5 +190,21 @@ class AdminControl(commands.Cog):
     async def leadership(self, ctx: Context):
         await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr\nDiamondclaw\nZellah\n\nGuild Advisor:\nJaemyst\nFuzzybottomz```')
 
+    @Command(
+        name='who reacted',
+        aliases=['wr'],
+        help='Displays who responded to specific message, by id')
+    async def who_reacted(self, ctx: Context, msg: int):
+        chan = self.bot.get_channel(int(self.ANNOUNCE_CHAN))
+        message_id = await chan.fetch_message(msg)
+        users = set()
+
+        for reaction in message_id.reactions:
+            async for user in reaction.users():
+                users.add(user)
+
+        await ctx.send(f"{ctx.author.mention} -> Here is the list of users that responded:\n {', '.join(user.name for user in users)}")
+
+
 def setup(bot):
     bot.add_cog(AdminControl(bot))
