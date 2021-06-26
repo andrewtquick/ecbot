@@ -6,6 +6,9 @@ from discord import Member
 from discord.ext import commands
 from discord.ext.commands import command as Command
 from discord.ext.commands import Context
+from misc.firebase import DBConnection
+from misc.utils import Utils
+from firebase_admin import db
 
 class AdminControl(commands.Cog):
 
@@ -15,6 +18,8 @@ class AdminControl(commands.Cog):
         self.ANNOUNCE_CHAN = os.getenv('ANNOUNCE_CHAN')
         self.AMONG_US_CHAN = os.getenv('AMOUNG_US_CHAN')
         self.tz = pytz.timezone('America/New_York')
+        self.utils = Utils(self)
+        self.ecdb = DBConnection(self)
 
     # Kick Command
 
@@ -190,10 +195,14 @@ class AdminControl(commands.Cog):
     async def leadership(self, ctx: Context):
         await ctx.send(f'{ctx.author.mention}\n```👑 Guild Leadership 👑\n\nXylr\nDiamondclaw\nZellah\n\nGuild Advisor:\nJaemyst\nFuzzybottomz```')
 
+    # Who reacted to message
+
     @Command(
         name='who reacted',
         aliases=['wr'],
-        help='Displays who responded to specific message, by id')
+        help='Displays who responded to specific message, by id',
+        usage='message_id')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
     async def who_reacted(self, ctx: Context, msg: int):
         chan = self.bot.get_channel(int(self.ANNOUNCE_CHAN))
         message_id = await chan.fetch_message(msg)
@@ -205,6 +214,39 @@ class AdminControl(commands.Cog):
 
         await ctx.send(f"{ctx.author.mention} -> Here is the list of users that responded:\n {', '.join(user.name for user in users)}")
 
+    # Whois command
+
+    @Command(
+        name='whois',
+        help='Displays information about a user',
+        usage='user')
+    @commands.has_any_role('Admin', 'Guild Master', 'Guild Advisor')
+    async def whois(self, ctx: Context, member: Member):
+        user_ref = db.reference('users')
+        user_check = user_ref.child(str(member.id))
+        ret_data = user_check.get()
+        nicknames = []
+
+        embed = discord.Embed(
+            title=f'Whois information for {member.display_name}',
+            description=f'Here is all the information I found for **{member.display_name}**',
+            colour=discord.Colour.orange())
+        embed.set_thumbnail(url=member.avatar_url)
+        embed.add_field(name='Member Name', value=ret_data['member'], inline=False)
+        embed.add_field(name='Display Name', value=ret_data['member_name'], inline=False)
+        embed.add_field(name='Joined Date', value=ret_data['joined_at'], inline=False)
+        
+        if 'nicknames' in ret_data:
+            for k,v in ret_data.items():
+                if k == 'nickname':
+                    nicknames.append(v)
+            embed.add_field(name='Nicknames', value=', '.join(name for name in nicknames), inline=False)
+
+        if 'self_leave' in ret_data:
+            left_date = self.utils.parse_date_time(str(ret_data['self_leave']))
+            embed.add_field(name='Date and time user left', value=left_date)
+
+        await ctx.send(f'{ctx.author.mention}', embed=embed)
 
 def setup(bot):
     bot.add_cog(AdminControl(bot))

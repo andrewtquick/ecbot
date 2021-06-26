@@ -15,7 +15,7 @@ class ErrorHandler(commands.Cog):
             await ctx.send(f'Sorry {ctx.author.mention}, you do not have the permission to perform this command.', delete_after=20)
 
         if isinstance(err, BadArgument):
-            await ctx.send(f'{ctx.author.mention} -> Sorry, not sure who that is. Please ensure you @ the user.', delete_after=20)
+            await ctx.send(f"{ctx.author.mention} -> Sorry, not sure who that is. Please ensure you spelled the user's name correctly.", delete_after=20)
 
     
 def setup(bot):
