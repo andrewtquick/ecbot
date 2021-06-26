@@ -235,8 +235,8 @@ class AdminControl(commands.Cog):
         embed.add_field(name='Member Name', value=ret_data['member'], inline=False)
         embed.add_field(name='Display Name', value=ret_data['member_name'], inline=False)
         embed.add_field(name='Joined Date', value=ret_data['joined_at'], inline=False)
-        
-        if 'nicknames' in ret_data:
+
+        if 'nickname' in ret_data:
             for k,v in ret_data.items():
                 if k == 'nickname':
                     nicknames.append(v)
