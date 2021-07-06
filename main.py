@@ -15,7 +15,8 @@ exts = [
     'cogs.warcraft.raids',
     'cogs.warcraft.gamble',
     'cogs.channel.channels',
-    'cogs.misc.ec_commands'
+    'cogs.misc.ec_commands',
+    'cogs.warcraft.dungeons'
 ]
 
 if __name__ == '__main__':

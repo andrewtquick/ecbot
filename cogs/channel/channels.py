@@ -90,7 +90,7 @@ class ChannelAdmin(commands.Cog):
                 get_chan = discord.utils.get(ctx.guild.channels, name=chan, type=discord.ChannelType.text)
                 set_chan = self.db.ecdb.child(str(ctx.guild.id)).child('channels')
                 set_chan.update({cmd: str(get_chan.id)})
-                return True
+                return chan
             except Exception:
                 return False
         else:
