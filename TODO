@@ -1,0 +1,48 @@
+Add Slash Commands?:
+  ✔ Have to specify specific guild roles @done(21-07-05 10:19)
+  ✔ Convenient for users in the guild @done(21-07-05 10:20)
+
+
+Admin Control:
+  Verification and Error Handling:
+    ☐ Verify role exists within guild
+    ☐ Build error handling
+  Database:
+    ☐ Save roles indicated by guild owner
+    ☐ Load roles from database
+    ☐ Inject roles into has_any_roles for all commands that require role checking
+
+Enable/Disable Commands:
+  ☐ Allow guild owner to disable and enable commands
+  Verification and Error Handling:
+    ☐ Verify user can invoke command
+    ☐ Build error handling
+  Database:
+    ☐ Save commands that owner disabled, enable is default
+    ☐ Load commands that were disabled
+    ☐ Disable all commands that were found in database record
+
+Word Filtering:
+  ☐ Allow guild owner to disable or enable
+  ☐ Allow admin role to add words to black list
+  ☐ Allow admin role to specify a warning or other action
+  Database:
+    ☐ Save all black listed words to database
+    ☐ Load all black listed words from database
+
+Build Event Command:
+  ☐ Allow guild owner specify who can start an event
+  ☐ Build bot to remember event
+  ☐ Update embed for users who react
+  ☐ Allow creator to specify guild emojis for reaction
+  Database:
+    ☐ Save event to database
+    
+
+✔ Channel Configuration: @done(21-07-05 15:22)
+  ✔ Allow guild owner to specify specific channels @done(21-07-05 15:22)
+  ✔ Channel Options: @done(21-07-05 15:22)
+    ✔ Bot Spam / Admin Information @done(21-07-05 15:22)
+    ✔ Event Channel @done(21-07-05 15:22)
+    ✔ Announcement Channel @done(21-07-05 15:22)
+    ✔ Gambling Channel @done(21-07-05 15:22)

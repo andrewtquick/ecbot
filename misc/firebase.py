@@ -1,8 +1,9 @@
 import os
 import firebase_admin
 from misc.utils import Utils
-from firebase_admin import credentials
-from firebase_admin import db
+from discord import Member as Member
+from discord import Guild as Guild
+from firebase_admin import credentials, db
 
 cred = credentials.Certificate({
     "type": os.getenv('GCP_TOKEN_TYPE'),
@@ -18,7 +19,7 @@ cred = credentials.Certificate({
     })
 
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://ecbot-data-storage-default-rtdb.firebaseio.com/' 
+    'databaseURL': os.getenv('DB_URL') 
 })
 
 class DBConnection(object):
@@ -26,29 +27,44 @@ class DBConnection(object):
     def __init__(self, object):
         self.db = object
         self.utils = Utils(self)
-
         self.ecdb = db.reference()
 
-    def check_user(self, member_id):
-        user_list = self.ecdb.get()
+    # Checking if user exists in db
 
-        if member_id in user_list['users']:
+    def check_user(self, guild, member):
+        get_user = self.ecdb.child(str(guild.id)).child('users')
+        get_data = get_user.get()
+
+        if str(member.id) in get_data:
             return True
-        else:
-            return False
+
+    # Getting date member joined server
+
+    def get_date(self, guild, member):
+        user_join = self.ecdb.child(str(guild.id)).child('users')
+        get_join_date = user_join.get()
+        return get_join_date[str(member.id)]['joined_at']
 
 
-    def get_date(self, member_id):
-        get_join_date = self.ecdb.get()
+    # Adding new user to db
 
-        return get_join_date['users'][member_id]['joined_at']
-
-    def add_new_user(self, member_id, member, member_name, joined_at):
-        new_user = self.ecdb.child('users')
-        parsed_date = self.utils.parse_date_time(str(joined_at))
+    def add_new_user(self, guild: str, member: str):
+        new_user = self.ecdb.child(str(guild.id)).child('users')
+        parsed_date = self.utils.parse_date_time(str(member.joined_at))
         new_user.update({
-            str(member_id): {
+            str(member.id): {
                 'member': str(member),
-                'member_name': str(member_name),
+                'member_id': str(member.id),
+                'member_name': str(member.name),
+                'display_name': str(member.display_name),
                 'joined_at': parsed_date
             }})
+
+    def check_guild(self, guild: str):
+        get_guild = self.ecdb.child(str(guild))
+        get_data = get_guild.get()
+
+        if get_data == None:
+            return False
+        else:
+            return True
