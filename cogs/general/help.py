@@ -11,7 +11,7 @@ class CustomHelpCommand(commands.Cog):
         self.bot = bot
         self.ecdb = DBConnection()
         self.utils = Utils(self)
-        self.prefix = 'ec.'
+        self.prefix = '.'
 
     # Custom Help Command
 
