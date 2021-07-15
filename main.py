@@ -1,20 +1,26 @@
 import discord
 import os
 from discord.ext import commands
+from discord_slash import SlashCommand
 
-intents = discord.Intents.default()
-intents.members = True
+bot = commands.Bot(
+    command_prefix='.',
+    intents=discord.Intents().all(),
+    help_command=None)
 
-bot = commands.Bot(command_prefix='.', description='Here is a list of available commands.\n To use the command, prefix the command with ".".', intents=intents)
+slash = SlashCommand(bot, sync_commands=True, sync_on_cog_reload=True)
 
 exts = [
-    'cogs.loadcog',
-    'cogs.error_handler',
-    'cogs.admin',
-    'cogs.misc',
-    'cogs.events',
-    'cogs.raids',
-    'cogs.gamble'
+    'cogs.admin.admin',
+    'cogs.events.events',
+    'cogs.errors.error_handler',
+    'cogs.general.loadcog',
+    'cogs.general.misc',
+    'cogs.general.ec_commands',
+    'cogs.general.help',
+    'cogs.warcraft.raids',
+    'cogs.warcraft.gamble',
+    'cogs.warcraft.dungeons',
 ]
 
 if __name__ == '__main__':

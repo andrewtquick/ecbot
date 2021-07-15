@@ -1,0 +1,55 @@
+Add Slash Commands?:
+  ✔ Have to specify specific guild roles @done(21-07-05 10:19)
+  ✔ Convenient for users in the guild @done(21-07-05 10:20)
+
+Custom Help Command:
+  ✔ Remove default command @done(21-07-08 23:41)
+  ✔ Replicate look of the default command @done(21-07-08 23:41)
+  ✔ check if admin, send admin commands @done(21-07-08 23:41)
+  ✔ check if not admin, send slash command embed @done(21-07-08 23:41)
+  ✔ Create help for setchan <channel> usage @done(21-07-09 08:21)
+  ✔ Create help to show what channels can be set for setchan @done(21-07-09 12:27)
+
+Enable/Disable Commands:
+  ☐ Allow guild owner to disable and enable commands
+  Verification and Error Handling:
+    ☐ Verify user can invoke command
+    ☐ Build error handling
+  Database:
+    ☐ Save commands that owner disabled, enable is default
+    ☐ Load commands that were disabled
+    ☐ Disable all commands that were found in database record
+
+Word Filtering:
+  ☐ Allow guild owner to disable or enable
+  ☐ Allow admin role to add words to black list
+  ☐ Allow admin role to specify a warning or other action
+  Database:
+    ☐ Save all black listed words to database
+    ☐ Load all black listed words from database
+
+Build Event Command:
+  ☐ Allow guild owner specify who can start an event
+  ☐ Build bot to remember event
+  ☐ Update embed for users who react
+  ☐ Allow creator to specify guild emojis for reaction
+  Database:
+    ☐ Save event to database
+    
+
+Create Custom Prefix Command:
+  ✔ Bot is loading prefix from db currently @done(21-07-08 23:36)
+  ✔ Create the command to change the prefix @done(21-07-09 08:21)
+  ☐ Set up on_guild_join command to gather users and send dm to guild owner
+
+Channel Configuration:
+  ✔ Allow guild owner to specify specific channels @done(21-07-05 15:22)
+  ✔ Channel Options: @done(21-07-05 15:22)
+    ✔ Bot Spam / Admin Information @done(21-07-05 15:22)
+    ✔ Event Channel @done(21-07-05 15:22)
+    ✔ Announcement Channel @done(21-07-05 15:22)
+    ✔ Gambling Channel @done(21-07-05 15:22)
+  Get Channels from db:
+    ☐ If channel not set, alert owner to set channel, on join for admin(only required)
+    ☐ Setup alert for commands to have a channel set before command works, add checking for channel stored, if not, offer command to set channel
+    ☐ more stuff, cant think right now
