@@ -25,7 +25,7 @@ class CustomHelpCommand(commands.Cog):
             cmd_dict = self.create_dict(bot_cmds, maxlen)
             cmd_list = '\n'.join('{} {}'.format(*i) for i in sorted(cmd_dict.items()))
             if cmd == None:
-                await ctx.send(f'{ctx.author.mention}\n```Here is a list of available Admin Commands.\nPlease insure you prefix the command with a "ec."\n\nCommands:\n{cmd_list}\n\nFor additional help, you use ec.help <command>```')
+                await ctx.send(f'{ctx.author.mention}\n```Here is a list of available Admin Commands.\nPlease insure you prefix the command with a "ec."\n\nCommands:\n{cmd_list}\n\nFor additional help, you use {self.prefix}help <command>```')
             else:
 
                 requested_cmd = self.bot.get_command(cmd)
