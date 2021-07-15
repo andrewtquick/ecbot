@@ -33,6 +33,12 @@ class Utils(object):
         parse_now = time.strptime(now.split('.')[0], '%Y-%m-%d %H:%M:%S')
         parse_now = time.strftime('%I:%M %p', parse_now)
         return parse_now
+   
+    def get_date_parsed(self):
+        now = str(dt.now(self.tz))
+        parse_now = time.strptime(now.split('.')[0], '%Y-%m-%d %H:%M:%S')
+        parse_now = time.strftime('%Y-%m-%d', parse_now)
+        return parse_now
 
     def blizzard_access_token(self):
         data = { 'grant_type' : 'client_credentials' }

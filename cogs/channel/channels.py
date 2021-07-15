@@ -10,7 +10,7 @@ class ChannelAdmin(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.db = DBConnection(self)
+        self.db = DBConnection()
         self.utils = Utils(self)
 
     # Set channel command
@@ -22,7 +22,16 @@ class ChannelAdmin(commands.Cog):
         usage='<channel type> [channel name or id]')
     @commands.has_permissions(administrator=True)
     async def set_chan(self, ctx: Context):
-        await ctx.send(f'{ctx.author.mention} -> Here is a list of channels you can set for specific `{self.bot.user.display_name}` events.')
+
+        cmd = self.bot.get_command('setchan')
+        channels = []
+
+        if isinstance(cmd, commands.Group):
+            for subcmd in cmd.walk_commands():
+                channels.append(subcmd.name)
+        
+        chans = ' \n'.join(chan for chan in channels)
+        await ctx.send(f'{ctx.author.mention} -> Here is a list of channels you can set for specific `{self.bot.user.display_name}` events.\n```{chans}```')
 
     # Set Announcement channel subcommand
 

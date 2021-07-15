@@ -5,8 +5,6 @@ from discord import Member
 from discord.ext import commands
 from discord.ext.commands import command as Command
 from discord.ext.commands import Context, BadArgument, CommandError
-from discord_slash import cog_ext, SlashContext
-from discord_slash.utils.manage_commands import create_option
 from misc.firebase import DBConnection
 from misc.utils import Utils
 from firebase_admin import db
@@ -19,15 +17,15 @@ class AdminControl(commands.Cog):
         self.ANNOUNCE_CHAN = os.getenv('ANNOUNCE_CHAN')
         self.AMONG_US_CHAN = os.getenv('AMOUNG_US_CHAN')
         self.utils = Utils(self)
-        self.ecdb = DBConnection(self)
+        self.ecdb = DBConnection()
 
     # Kick Command
 
     @Command(
         name='kick',
         aliases=['k'],
-        help='Kick a user from the server.',
-        usage='user name or user id')
+        help='Kick a user from the server',
+        usage='<user name> or <user id>')
     @commands.has_permissions(administrator=True)
     async def kick(self, ctx: Context, member: Member):
         user = self.bot.get_guild(int(ctx.guild.id)).get_member_named(member.name)
@@ -44,8 +42,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='ban',
         aliases=['b'],
-        help='Ban a user from the server.',
-        usage='user name <reason> or user id <reason>')
+        help='Ban a user from the server',
+        usage='<user name> [reason] or <user id> [reason]')
     @commands.has_permissions(administrator=True)
     async def ban(self, ctx: Context, member: Member, *, reason='No reason given.'):
         user = self.bot.get_guild(int(ctx.guild.id)).get_member_named(member.name)
@@ -62,8 +60,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='mute',
         aliases=['m'],
-        help='Mute a user.',
-        usage='user name or user id')
+        help='Mute a user',
+        usage='<user name> or <user id>')
     @commands.has_permissions(administrator=True)
     async def mute(self, ctx: Context, member: Member):
         user = self.bot.get_guild(int(ctx.guild.id)).get_member_named(member.name)
@@ -80,8 +78,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='unmute',
         aliases=['um'],
-        help='Unmute a user.',
-        usage='user name or user id')
+        help='Unmute a user',
+        usage='<user name> or <user id>')
     @commands.has_permissions(administrator=True)
     async def unmute(self, ctx: Context, member: Member):
         user = self.bot.get_guild(int(ctx.guild.id)).get_member_named(member.name)
@@ -98,8 +96,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='muteall',
         aliases=['ma'],
-        help='Mute all users in a specific voice channel.',
-        usage='channel name or channel id')
+        help='Mute all users in a specific voice channel',
+        usage='<channel name> or <channel id>')
     @commands.has_permissions(administrator=True)
     async def mute_all(self, ctx: Context, chan):
         check_chan = self.utils.channel_parse(chan)
@@ -132,8 +130,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='unmuteall',
         aliases=['uma'],
-        help="Unmute all users in a specific voice channel.",
-        usage="channel name or channel id")
+        help="Unmute all users in a specific voice channel",
+        usage="<channel name> or <channel id>")
     @commands.has_permissions(administrator=True)
     async def unmute_all(self, ctx: Context, chan=None):
         check_chan = self.utils.channel_parse(chan)
@@ -166,8 +164,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='squelch',
         aliases=['s'],
-        help='Deafens and Mutes all users in a specific voice channel.',
-        usage="channel name or channel id")
+        help='Squelch all users in a specific voice channel',
+        usage="<channel name> or <channel id>")
     @commands.has_permissions(administrator=True)
     async def squelch(self, ctx: Context, chan=None):
         check_chan = self.utils.channel_parse(chan)
@@ -200,8 +198,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='unsquelch',
         aliases=['us'],
-        help='UnDeafens and unmutes all users in a specific voice channel.',
-        usage="channel name or channel id")
+        help='Unsquelch all users in a specific voice channel',
+        usage="<channel name> or <channel id>")
     @commands.has_permissions(administrator=True)
     async def unsquelch(self, ctx: Context, chan=None):
         check_chan = self.utils.channel_parse(chan)
@@ -234,8 +232,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='deafen',
         aliases=['d'],
-        help='Deafen a user in any voice channel.',
-        usage='user name or user id')
+        help='Deafen a user in any voice channel',
+        usage='<user name> or <user id>')
     @commands.has_permissions(administrator=True)
     async def deafen(self, ctx: Context, member: Member):
         user = self.bot.get_guild(int(ctx.guild.id)).get_member_named(member.name)
@@ -251,8 +249,8 @@ class AdminControl(commands.Cog):
     @Command(
         name='undeafen',
         aliases=['ud'],
-        help='Undeafen a user in any voice channel.',
-        usage='user name or user id')
+        help='Undeafen a user in any voice channel',
+        usage='<user name> or <user id>')
     @commands.has_permissions(administrator=True)
     async def undeafen(self, ctx: Context, member: Member):
         user = self.bot.get_guild(int(ctx.guild.id)).get_member_named(member.name)
@@ -268,7 +266,7 @@ class AdminControl(commands.Cog):
     @Command(
         name='announce',
         aliases=['a'],
-        help='Send an announcement to the announcement channel.\nAnnouncement channel must be set first.',
+        help='Send an announcement to the announcement channel',
         usage='<message>')
     @commands.has_permissions(administrator=True)
     async def announce(self, *, msg: str):
@@ -280,7 +278,7 @@ class AdminControl(commands.Cog):
     @Command(
         name='whois',
         help='Displays information about a user',
-        usage='user')
+        usage='<user>')
     @commands.has_permissions(administrator=True)
     async def whois(self, ctx: Context, member: Member):
         user_ref = db.reference().child(str(member.guild.id)).child('users')
@@ -306,7 +304,7 @@ class AdminControl(commands.Cog):
             embed.add_field(name='Nicknames', value=', '.join(name for name in nicknames), inline=False)
 
         if 'self_leave' in ret_data:
-            left_date = self.utils.parse_date_time(str(ret_data['self_leave']))
+            left_date = self.utils.parse_date_time(str(ret_data['left']))
             embed.add_field(name='Date and time user left', value=left_date)
 
         if 'ban_reason' in ret_data:

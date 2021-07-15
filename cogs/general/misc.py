@@ -9,7 +9,6 @@ from discord.ext.commands import Context
 from discord_slash import cog_ext, SlashContext
 from discord_slash.utils.manage_commands import create_option, create_choice
 from misc.utils import Utils
-from datetime import datetime as dt
 
 
 class Miscellaneous(commands.Cog):
@@ -23,7 +22,6 @@ class Miscellaneous(commands.Cog):
     @cog_ext.cog_slash(
         name='invite',
         description='Create an invite',
-        guild_ids=[662464939469963285],
         options=[
             create_option(
                 name='limit',
@@ -36,8 +34,7 @@ class Miscellaneous(commands.Cog):
                 description='How many uses for this invite? 0=unlimited',
                 required=False,
                 option_type=3
-            )]
-    )
+            )])
     async def link(self, ctx: Context, limit=0, uses=0):
         inv_link = await ctx.channel.create_invite(max_age=limit, max_uses=uses, unique=True)
         if limit == 0 and uses == 0:
@@ -54,7 +51,6 @@ class Miscellaneous(commands.Cog):
     @cog_ext.cog_slash(
         name='wowtoken',
         description='Displays the current WoW token price.',
-        guild_ids=[662464939469963285],
         options=[
             create_option(
                 name='region',
@@ -110,8 +106,7 @@ class Miscellaneous(commands.Cog):
 
     @cog_ext.cog_slash(
         name='ranks',
-        description='Displays current DPS ranks in raid.',
-        guild_ids=[662464939469963285])
+        description='Displays current DPS ranks in raid.')
     async def ranks(self, ctx: Context):
         await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://i.imgur.com/qXzph89.png")
 
@@ -120,7 +115,6 @@ class Miscellaneous(commands.Cog):
     @cog_ext.cog_slash(
         name='8ball',
         description='Ask the 8Ball a question',
-        guild_ids=[662464939469963285],
         options=[
             create_option(
                 name='question',

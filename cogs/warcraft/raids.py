@@ -13,7 +13,6 @@ class Raids(commands.Cog):
     @cog_ext.cog_slash(
         name='raid-guide',
         description='Display information regarding the boss and difficulty you select',
-        guild_ids=[662464939469963285],
         options=[
             create_option(
                 name='difficulty',
@@ -21,18 +20,9 @@ class Raids(commands.Cog):
                 required=True,
                 option_type=3,
                 choices=[
-                    create_choice(
-                        name='Normal',
-                        value='normal'
-                    ),
-                    create_choice(
-                        name='Heroic',
-                        value='hero',
-                    ),
-                    create_choice(
-                        name='Mythic',
-                        value='myth'
-                    )]
+                    create_choice(name='Normal', value='normal'),
+                    create_choice(name='Heroic', value='hero'),
+                    create_choice(name='Mythic', value='myth')]
             ),
             create_option(
                 name='boss',
@@ -40,86 +30,26 @@ class Raids(commands.Cog):
                 required=True,
                 option_type=3,
                 choices=[
-                    create_choice(
-                        name='The Tarragrue',
-                        value='tarra'
-                    ),
-                    create_choice(
-                        name='The Eye of the Jailer',
-                        value='eye'
-                    ),
-                    create_choice(
-                        name='The Nine',
-                        value='nine'
-                    ),
-                    create_choice(
-                        name='Soulrender Doirmazain',
-                        value='soul'
-                    ),
-                    create_choice(
-                        name="Remnant of Ner'zhul",
-                        value='remnant'
-                    ),
-                    create_choice(
-                        name='Painsmith Raznal',
-                        value='raznal'
-                    ),
-                    create_choice(
-                        name='Guardian of the First Ones',
-                        value='guard'
-                    ),
-                    create_choice(
-                        name='Fatescribe Roh-Kalo',
-                        value='kalo'
-                    ),
-                    create_choice(
-                        name="Kel'Thuzad",
-                        value='kel'
-                    ),
-                    create_choice(
-                        name='Sylvanas Windrunner',
-                        value='sylvanas'
-                    ),
-                    create_choice(
-                        name='Shriekwing',
-                        value='shriek'
-                    ),
-                    create_choice(
-                        name='Huntsman Altimor',
-                        value='hunts'
-                    ),
-                    create_choice(
-                        name='Hungering Destroyer',
-                        value='hung'
-                    ),
-                    create_choice(
-                        name="Artificer Xy'Mox",
-                        value='xymox'
-                    ),
-                    create_choice(
-                        name="Sun King's Salvation",
-                        value='king'
-                    ),
-                    create_choice(
-                        name='Lady Inerva Darkvein',
-                        value='lady'
-                    ),
-                    create_choice(
-                        name='Council of Blood',
-                        value='council'
-                    ),
-                    create_choice(
-                        name='Sludgefist',
-                        value='sludge'
-                    ),
-                    create_choice(
-                        name='Stone Legion',
-                        value='stone'
-                    ),
-                    create_choice(
-                        name='Sire Denathrius',
-                        value='sire'
-                    )]
+                    create_choice(name='The Tarragrue', value='tarra'),
+                    create_choice(name='The Eye of the Jailer', value='eye'),
+                    create_choice(name='The Nine', value='nine'),
+                    create_choice(name='Soulrender Doirmazain', value='soul'),
+                    create_choice(name="Remnant of Ner'zhul", value='remnant'),
+                    create_choice(name='Painsmith Raznal', value='raznal'),
+                    create_choice(name='Guardian of the First Ones', value='guard'),
+                    create_choice(name='Fatescribe Roh-Kalo', value='kalo'),
+                    create_choice(name="Kel'Thuzad", value='kel'),
+                    create_choice(name='Sylvanas Windrunner', value='sylvanas'),
+                    create_choice(name='Shriekwing', value='shriek'),
+                    create_choice(name='Huntsman Altimor', value='hunts'),
+                    create_choice(name='Hungering Destroyer', value='hung'),
+                    create_choice(name="Artificer Xy'Mox", value='xymox'),
+                    create_choice(name="Sun King's Salvation", value='king'),
+                    create_choice(name='Lady Inerva Darkvein', value='lady'),
+                    create_choice(name='Council of Blood', value='council'),
+                    create_choice(name='Sludgefist', value='sludge'),
+                    create_choice(name='Stone Legion', value='stone'),
+                    create_choice(name='Sire Denathrius', value='sire')]
             )])
     async def castle_nathria(self, ctx: Context, boss, difficulty):
 
@@ -248,9 +178,9 @@ class Raids(commands.Cog):
         if difficulty == 'normal':
             await ctx.send(content=f"{ctx.author.mention} -> Here is the `Normal` guide for `{raid_guides[boss]['name']}`\n\n{raid_guides[boss]['normal']}")
         if difficulty == 'hero':
-            await ctx.send(content=f"{ctx.author.mention} -> Here is the `Heroic` guide for `{raid_guides[boss]['name']}`\n\n{raid_guides[boss]['normal']}")
+            await ctx.send(content=f"{ctx.author.mention} -> Here is the `Heroic` guide for `{raid_guides[boss]['name']}`\n\n{raid_guides[boss]['hero']}")
         if difficulty == 'myth':
-            await ctx.send(content=f"{ctx.author.mention} -> Here is the `Mythic` guide for `{raid_guides[boss]['name']}`\n\n{raid_guides[boss]['normal']}")
+            await ctx.send(content=f"{ctx.author.mention} -> Here is the `Mythic` guide for `{raid_guides[boss]['name']}`\n\n{raid_guides[boss]['myth']}")
 
 def setup(bot):
     bot.add_cog(Raids(bot))

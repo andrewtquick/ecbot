@@ -25,7 +25,6 @@ class Gamble(commands.Cog):
     @cog_ext.cog_slash(
         name='gamble',
         description='Start a WoW gold gambling session',
-        guild_ids=[662464939469963285],
         options=[
             create_option(
                 name='amount',
@@ -189,8 +188,7 @@ class Gamble(commands.Cog):
 
     @cog_ext.cog_slash(
         name='gambleroll',
-        description='Roll for the gambling session',
-        guild_ids=[662464939469963285])
+        description='Roll for the gambling session')
     async def roll(self, ctx: Context):
 
         if ctx.channel.id == int(self.GAMBLE_CHAN):
@@ -246,8 +244,7 @@ class Gamble(commands.Cog):
 
     @cog_ext.cog_slash(
         name='gamblers',
-        description='Displays gamblers for the current session',
-        guild_ids=[662464939469963285])
+        description='Displays gamblers for the current session')
     async def list_gamblers(self, ctx: Context):
 
         if ctx.channel.id == self.gamble_chan:
@@ -269,8 +266,7 @@ class Gamble(commands.Cog):
 
     @cog_ext.cog_slash(
         name='currentgamble',
-        description='Displays if there is a current game.',
-        guild_ids=[662464939469963285])
+        description='Displays if there is a current game.')
     async def current_game(self, ctx: Context):
 
         if ctx.channel.id == int(self.GAMBLE_CHAN):

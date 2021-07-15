@@ -1,7 +1,7 @@
 import discord
 import discord.utils
 from discord.ext import commands
-from discord_slash import cog_ext, SlashContext
+from discord_slash import cog_ext, SlashContext, SlashCommand
 from discord_slash.utils.manage_commands import create_option
 
 
@@ -15,7 +15,6 @@ class ECCommands(commands.Cog):
     @cog_ext.cog_slash(
         name='ff',
         description='Adds the Friends and Family role to a specific user.',
-        guild_ids=[662464939469963285],
         options=[
             create_option(
                 name='member',
@@ -38,8 +37,7 @@ class ECCommands(commands.Cog):
 
     @cog_ext.cog_slash(
         name='rules',
-        description='Displays guild rules.',
-        guild_ids=[662464939469963285])
+        description='Displays guild rules.')
     async def rules(self, ctx: SlashContext):
         await ctx.send(content=f'{ctx.author.mention}\n```📄 Server Rules 📄\n\n❌ No Racism\n❌ No Politics Discussion\n❌ No Toxicity\n❌ No NSFW Content\n✅ Have fun!```\n**These rules are zero tolerance.**')
 
@@ -48,11 +46,10 @@ class ECCommands(commands.Cog):
 
     @cog_ext.cog_slash(
         name='Youtube',
-        description='Link for the Elite Casuals Youtube channel.',
-        guild_ids=[662464939469963285]
-    )
+        description='Link for the Elite Casuals Youtube channel.')
     async def youtube(self, ctx: SlashContext):
         await ctx.send(f"{ctx.author.mention} -> Here is the Youtube link. https://www.youtube.com/channel/UCWeTRksGtMyXUd_Kn_f-svg")
 
+    
 def setup(bot):
     bot.add_cog(ECCommands(bot))
