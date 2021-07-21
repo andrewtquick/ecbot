@@ -108,7 +108,7 @@ class Miscellaneous(commands.Cog):
         name='ranks',
         description='Displays current DPS ranks in raid.')
     async def ranks(self, ctx: Context):
-        await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://i.imgur.com/MVIDeIU.png")
+        await ctx.send(f"{ctx.author.mention} -> Here are the current DPS ranks.\nhttps://i.imgur.com/Mi4UpM1.png")
 
     # 8-ball Command
 
